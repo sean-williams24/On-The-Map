@@ -63,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				CECACE2822F9C48C0088505A /* AppDelegate.swift */,
+				CECACE4522FAD4D20088505A /* Model */,
 				CECACE3A22FAC7EE0088505A /* Controllers */,
 				CECACE2C22F9C48C0088505A /* Main.storyboard */,
 				CECACE2F22F9C48F0088505A /* Assets.xcassets */,
@@ -82,6 +83,13 @@
 				CECACE4322FACA120088505A /* NewLocationMapViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CECACE4522FAD4D20088505A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

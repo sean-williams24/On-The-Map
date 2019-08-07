@@ -73,12 +73,16 @@
                                 <color key="textColor" red="0.43053591251373291" green="0.76873821020126343" blue="0.90465742349624634" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brx-4L-eq2">
-                                <rect key="frame" x="16" y="448.5" width="382" height="20.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Don't have an account? Sign Up" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gHg-Pi-0gE">
+                                <rect key="frame" x="16" y="448.5" width="382" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="48d-vw-Cec"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -86,14 +90,14 @@
                             <constraint firstItem="p7U-xR-rO6" firstAttribute="top" secondItem="hiT-51-lTM" secondAttribute="bottom" constant="22" id="48J-lT-zah"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p7U-xR-rO6" secondAttribute="trailing" constant="20" id="5WV-iB-UZa"/>
                             <constraint firstItem="hiT-51-lTM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="9Ee-NA-Sdq"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="brx-4L-eq2" secondAttribute="trailing" constant="16" id="KBU-Oc-tHp"/>
+                            <constraint firstItem="gHg-Pi-0gE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Hhd-pp-tJz"/>
                             <constraint firstItem="Dwy-Ok-1ne" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Xbf-NU-zbC"/>
                             <constraint firstItem="Dwy-Ok-1ne" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="d82-Wc-qrg"/>
-                            <constraint firstItem="brx-4L-eq2" firstAttribute="top" secondItem="p7U-xR-rO6" secondAttribute="bottom" constant="20" id="dUR-vG-wB6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hiT-51-lTM" secondAttribute="trailing" constant="16" id="i9d-dB-JD7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dwy-Ok-1ne" secondAttribute="trailing" constant="16" id="nFs-lj-1Tq"/>
                             <constraint firstItem="hiT-51-lTM" firstAttribute="top" secondItem="Dwy-Ok-1ne" secondAttribute="bottom" constant="8" id="oq2-6T-NES"/>
-                            <constraint firstItem="brx-4L-eq2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="z94-iF-gQI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gHg-Pi-0gE" secondAttribute="trailing" constant="16" id="sQC-3F-2qr"/>
+                            <constraint firstItem="gHg-Pi-0gE" firstAttribute="top" secondItem="p7U-xR-rO6" secondAttribute="bottom" constant="20" id="smY-nc-OVv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -101,7 +105,7 @@
                         <outlet property="emailTextfield" destination="RBw-gp-e50" id="fQW-YN-IbU"/>
                         <outlet property="loginButton" destination="lnx-ij-ONU" id="MNQ-ft-DqE"/>
                         <outlet property="passwordTextfield" destination="aAh-7k-hMd" id="JXI-wB-yXu"/>
-                        <outlet property="signUpLabel" destination="brx-4L-eq2" id="6Wn-KX-Gi7"/>
+                        <outlet property="textView" destination="gHg-Pi-0gE" id="rqo-4u-nh4"/>
                         <segue destination="Z5M-aN-Bad" kind="show" identifier="loginSegue" id="fnM-e2-MeS"/>
                     </connections>
                 </viewController>
