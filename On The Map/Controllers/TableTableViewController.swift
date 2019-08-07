@@ -12,6 +12,8 @@ class TableTableViewController: UITableViewController {
 
     @IBOutlet var refreshButton: UIBarButtonItem!
     
+//    let studentLocation = StudentModel.studentLocationData
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,26 +26,45 @@ class TableTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return StudentModel.studentLocationData.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
+        let student = StudentModel.studentLocationData[indexPath.row]
+        cell.textLabel?.text = student.firstName + student.lastName
+        cell.detailTextLabel?.text = student.mediaURL
+        cell.imageView?.image = UIImage(named: "icon_pin")
+        
 
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let student = StudentModel.studentLocationData[indexPath.row]
+            let app = UIApplication.shared
+            let toOpen = student.mediaURL
+            app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
+            
+    }
 
+    @IBAction func refreshTapped(_ sender: Any) {
+        MapClient.getStudentLocations { (students, error) in
+            StudentModel.studentLocationData = students
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

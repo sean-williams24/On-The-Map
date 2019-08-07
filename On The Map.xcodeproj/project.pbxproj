@@ -16,6 +16,9 @@
 		CECACE3E22FAC9270088505A /* TableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE3D22FAC9270088505A /* TableTableViewController.swift */; };
 		CECACE4222FAC9D50088505A /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4122FAC9D50088505A /* InformationPostingViewController.swift */; };
 		CECACE4422FACA120088505A /* NewLocationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4322FACA120088505A /* NewLocationMapViewController.swift */; };
+		CECACE4722FAE0AB0088505A /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4622FAE0AB0088505A /* StudentLocation.swift */; };
+		CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4A22FAE76B0088505A /* MapClient.swift */; };
+		CECACE4D22FAF2D90088505A /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4C22FAF2D90088505A /* StudentModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		CECACE3D22FAC9270088505A /* TableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTableViewController.swift; sourceTree = "<group>"; };
 		CECACE4122FAC9D50088505A /* InformationPostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		CECACE4322FACA120088505A /* NewLocationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationMapViewController.swift; sourceTree = "<group>"; };
+		CECACE4622FAE0AB0088505A /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		CECACE4A22FAE76B0088505A /* MapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClient.swift; sourceTree = "<group>"; };
+		CECACE4C22FAF2D90088505A /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,9 @@
 		CECACE4522FAD4D20088505A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CECACE4C22FAF2D90088505A /* StudentModel.swift */,
+				CECACE4622FAE0AB0088505A /* StudentLocation.swift */,
+				CECACE4A22FAE76B0088505A /* MapClient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,11 +173,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECACE3E22FAC9270088505A /* TableTableViewController.swift in Sources */,
+				CECACE4D22FAF2D90088505A /* StudentModel.swift in Sources */,
 				CECACE4222FAC9D50088505A /* InformationPostingViewController.swift in Sources */,
+				CECACE4722FAE0AB0088505A /* StudentLocation.swift in Sources */,
 				CECACE2B22F9C48C0088505A /* LoginViewController.swift in Sources */,
 				CECACE4422FACA120088505A /* NewLocationMapViewController.swift in Sources */,
 				CECACE3C22FAC9020088505A /* MapViewController.swift in Sources */,
 				CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */,
+				CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
