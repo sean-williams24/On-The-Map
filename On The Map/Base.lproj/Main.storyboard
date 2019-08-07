@@ -98,7 +98,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="emailTextfield" destination="RBw-gp-e50" id="fQW-YN-IbU"/>
                         <outlet property="loginButton" destination="lnx-ij-ONU" id="MNQ-ft-DqE"/>
+                        <outlet property="passwordTextfield" destination="aAh-7k-hMd" id="JXI-wB-yXu"/>
+                        <outlet property="signUpLabel" destination="brx-4L-eq2" id="6Wn-KX-Gi7"/>
                         <segue destination="Z5M-aN-Bad" kind="show" identifier="loginSegue" id="fnM-e2-MeS"/>
                     </connections>
                 </viewController>
@@ -138,6 +141,10 @@
                             <barButtonItem systemItem="refresh" id="FzL-GB-g42"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="7N6-FR-br7" id="aFq-eA-9bt"/>
+                        <outlet property="refreshButton" destination="FzL-GB-g42" id="u3n-ot-Cug"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="twT-0W-RJz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -200,7 +207,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9An-mS-TVw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Location" id="pb5-8Y-zws"/>
+                    <navigationItem key="navigationItem" title="Add Location" id="pb5-8Y-zws">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ori-8O-kzG">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="SA1-eP-QK3" id="Rgr-7q-1Pr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="ori-8O-kzG" id="aVg-1d-spN"/>
+                        <outlet property="findLocationButton" destination="XQf-Gj-Oia" id="84s-sL-h69"/>
+                        <outlet property="linkTextfield" destination="scP-N1-3Oc" id="GwD-pC-4se"/>
+                        <outlet property="locationTextfield" destination="kMI-Wx-eYu" id="3Xh-S9-1Gm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YYZ-e6-lLA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -209,7 +228,7 @@
         <!--Add Location-->
         <scene sceneID="ydF-j7-RPz">
             <objects>
-                <viewController storyboardIdentifier="newLocationMapVC" title="Add Location" id="lfQ-KK-LrX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newLocationMapVC" title="Add Location" id="lfQ-KK-LrX" customClass="NewLocationMapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aJe-6E-b6P">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -227,6 +246,9 @@
                                 <state key="normal" title="FINISH">
                                     <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="finishButtonTapped:" destination="lfQ-KK-LrX" eventType="touchUpInside" id="D8u-mZ-a1m"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -241,6 +263,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MKB-Be-z6T"/>
                     </view>
+                    <connections>
+                        <outlet property="finishButton" destination="IJN-1X-1st" id="oth-yB-V3H"/>
+                        <outlet property="mapView" destination="Peg-md-6UR" id="8na-aU-CzI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJB-Ob-nwX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -264,11 +290,11 @@
             </objects>
             <point key="canvasLocation" x="929" y="-72"/>
         </scene>
-        <!--Map-->
+        <!--Navigation Controller-->
         <scene sceneID="Ncc-ub-bNA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GrA-lV-V31" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="oGm-EX-whx">
+                    <tabBarItem key="tabBarItem" title="" image="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="oGm-EX-whx">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -338,6 +364,9 @@
                             <barButtonItem systemItem="refresh" id="tfd-hF-S3y"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="refreshButton" destination="tfd-hF-S3y" id="Re8-KQ-YBR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGP-b6-qfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -371,7 +400,7 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LlE-So-s1f"/>
+        <segue reference="oHg-0K-4Lx"/>
         <segue reference="fnM-e2-MeS"/>
     </inferredMetricsTieBreakers>
 </document>

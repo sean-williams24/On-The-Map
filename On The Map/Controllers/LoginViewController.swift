@@ -11,6 +11,9 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBOutlet var loginButton: UIButton!
+    @IBOutlet var emailTextfield: UITextField!
+    @IBOutlet var passwordTextfield: UITextField!
+    @IBOutlet var signUpLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

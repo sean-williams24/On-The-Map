@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
 class NewLocationMapViewController: UIViewController {
+    
+    @IBOutlet var mapView: MKMapView!
+    @IBOutlet var finishButton: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        finishButton.layer.cornerRadius = 20.0
+        
     }
     
 
@@ -27,4 +33,6 @@ class NewLocationMapViewController: UIViewController {
     }
     */
 
+    @IBAction func finishButtonTapped(_ sender: Any) {
+    }
 }

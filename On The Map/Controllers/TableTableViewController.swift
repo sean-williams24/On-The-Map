@@ -10,6 +10,8 @@ import UIKit
 
 class TableTableViewController: UITableViewController {
 
+    @IBOutlet var refreshButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -10,8 +10,18 @@ import UIKit
 
 class InformationPostingViewController: UIViewController {
 
+    @IBOutlet var locationTextfield: UITextField!
+    @IBOutlet var linkTextfield: UITextField!
+    @IBOutlet var findLocationButton: UIButton!
+    @IBOutlet var cancelButton: UIBarButtonItem!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        findLocationButton.layer.cornerRadius = 20.0
+        
 
         // Do any additional setup after loading the view.
     }
@@ -26,5 +36,7 @@ class InformationPostingViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+    }
+    
 }
