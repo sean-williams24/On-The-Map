@@ -21,50 +21,49 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         MapClient.getStudentLocations { (students, error) in
             StudentModel.studentLocationData = students
 //            print(StudentModel.studentLocationData[0])
-            let sean = StudentModel.studentLocationData[0]
-            print(sean.longitude)
-            print(sean.latitude)
-            print(StudentModel.studentLocationData.count)
-        }
         
-
-        // The "locations" array is an array of dictionary objects that are similar to the JSON
-        // data that you can download from parse.
+        let sean = StudentModel.studentLocationData[2]
+        print(sean.longitude)
+        print(sean.latitude)
+        print(StudentModel.studentLocationData.count)
+            
+            // We will create an MKPointAnnotation for each dictionary in "locations". The
+            // point annotations will be stored in this array, and then provided to the map view.
+            var annotations = [MKPointAnnotation]()
+            
+            // The "locations" array is loaded with the sample data below. We are using the dictionaries
+            // to create map annotations. This would be more stylish if the dictionaries were being
+            // used to create custom structs. Perhaps StudentLocation structs.
+            
+            for student in StudentModel.studentLocationData {
+                
+                // Notice that the float values are being used to create CLLocationDegree values.
+                // This is a version of the Double type.
+                let lat = CLLocationDegrees(student.latitude)
+                let long = CLLocationDegrees(student.longitude)
+                
+                // The lat and long are used to create a CLLocationCoordinates2D instance.
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                let first = student.firstName
+                let last = student.lastName
+                let mediaURL = student.mediaURL
+                
+                // Here we create the annotation and set its coordiate, title, and subtitle properties
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(first) \(last)"
+                annotation.subtitle = mediaURL
+                
+                // Finally we place the annotation in an array of annotations.
+                annotations.append(annotation)
+            }
+            // When the array is complete, we add the annotations to the map.
+            self.mapView.addAnnotations(annotations)
+        }
   
      
-        // We will create an MKPointAnnotation for each dictionary in "locations". The
-        // point annotations will be stored in this array, and then provided to the map view.
-        var annotations = [MKPointAnnotation]()
-        
-        // The "locations" array is loaded with the sample data below. We are using the dictionaries
-        // to create map annotations. This would be more stylish if the dictionaries were being
-        // used to create custom structs. Perhaps StudentLocation structs.
-        
-        for student in StudentModel.studentLocationData {
-            
-            // Notice that the float values are being used to create CLLocationDegree values.
-            // This is a version of the Double type.
-            let lat = CLLocationDegrees(student.latitude)
-            let long = CLLocationDegrees(student.longitude)
-            
-            // The lat and long are used to create a CLLocationCoordinates2D instance.
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let first = student.firstName
-            let last = student.lastName
-            let mediaURL = student.mediaURL
-            
-            // Here we create the annotation and set its coordiate, title, and subtitle properties
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            // Finally we place the annotation in an array of annotations.
-            annotations.append(annotation)
-        }
-        // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotations(annotations)
+
         
     }
     

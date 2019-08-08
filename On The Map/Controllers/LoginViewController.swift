@@ -32,8 +32,9 @@ class LoginViewController: UIViewController, UITextViewDelegate {
     }
 
     @IBAction func loginButtonTapped(_ sender: Any) {
-//        MapClient.getStudentLocations { (studentLocations, error) in
-//        }
+        MapClient.getStudentLocations { (studentLocations, error) in
+            StudentModel.studentLocationData = studentLocations
+        }
     }
     
 }
