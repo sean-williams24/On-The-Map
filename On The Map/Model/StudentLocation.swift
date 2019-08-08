@@ -15,8 +15,8 @@ struct StudentLocation: Codable, Equatable {
     let lastName: String
     let mapString: String
     let mediaURL: String
-    let latitude: Float
-    let longitude: Float
+    let latitude: Double
+    let longitude: Double
     
 //    enum CodingKeys: String, CodingKey {
 //        case firstName

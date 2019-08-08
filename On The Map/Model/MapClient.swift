@@ -53,11 +53,11 @@ class MapClient {
     
     // - Post a new student location
 
-    class func postStudentLocation(mapString: String, mediaURL: String, lat: Float, lon: Float, completion: @escaping (StudentLocation?, Error?) -> Void) {
+    class func postStudentLocation(firstName: String, lastName: String, mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (StudentLocation?, Error?) -> Void) {
         var request = URLRequest(url: Endpoints.getStudentLocation.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = StudentLocation(objectId: "", uniqueKey: "1111", firstName: "Jack", lastName: "Bauer", mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
+        let body = StudentLocation(objectId: "", uniqueKey: "1111", firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
         request.httpBody = try! JSONEncoder().encode(body)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -65,9 +65,17 @@ class MapClient {
                 completion(nil, error)
                 return
             }
-            
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(StudentLocation.self, from: data)
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
+            } catch {
+                completion(nil, error)
+            }
         }
-        
+        task.resume()
     }
     
 }

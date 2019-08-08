@@ -16,9 +16,12 @@ class NewLocationMapViewController: UIViewController {
     
     var location = ""
     var mediaURL = ""
+    var latPost = 0.0
+    var longPost = 0.0
     
     let firstName = "Jack"
     let lastName = "Bauer"
+    
 
     
     
@@ -41,6 +44,8 @@ class NewLocationMapViewController: UIViewController {
                 let name = placemark.name!
                 let country = placemark.country!
                 let region = placemark.administrativeArea!
+                self.longPost = Double(longitude) ?? 0.0
+                self.latPost = Double(latitude) ?? 0.0
                 
                 let long = CLLocationDegrees(longitude) ?? 0
                 let lat = CLLocationDegrees(latitude) ?? 0
@@ -53,7 +58,7 @@ class NewLocationMapViewController: UIViewController {
                 
                 self.mapView.addAnnotation(annotation)
                 
-                let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 600, longitudinalMeters: 600)
+                let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
                 self.mapView.setRegion(viewRegion, animated: true)
                 self.mapView.showsUserLocation = true
                 
@@ -66,6 +71,25 @@ class NewLocationMapViewController: UIViewController {
 
     @IBAction func finishButtonTapped(_ sender: Any) {
         
+        MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost) { (location, error) in
+            if let location = location {
+                StudentModel.studentLocationData.append(location)
         
+            }
+        }
+
+        self.dismiss(animated: true) {
+        popToFirstVC()
+        }
+        
+        func popToFirstVC() {
+            MapClient.getStudentLocations { (response, error) in
+                if let firstViewController = self.navigationController?.viewControllers[1] {
+                    self.navigationController?.popToViewController(firstViewController, animated: true)
+                }
+            }
+
+        }
+
     }
 }
