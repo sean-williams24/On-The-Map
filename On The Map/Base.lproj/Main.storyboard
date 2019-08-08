@@ -141,12 +141,12 @@
                     <navigationItem key="navigationItem" title="On The Map" id="gDD-aJ-pNw">
                         <barButtonItem key="backBarButtonItem" title="CANCEL" id="Dez-IT-GFb"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="tPH-6C-wdu">
+                            <barButtonItem image="icon_pin" id="tPH-6C-wdu">
                                 <connections>
                                     <segue destination="hyr-Pm-zjW" kind="presentation" id="LlE-So-s1f"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="refresh" id="FzL-GB-g42">
+                            <barButtonItem image="icon_refresh" id="FzL-GB-g42">
                                 <connections>
                                     <action selector="refreshButtonTapped:" destination="fjv-fE-5Uw" id="9X4-uY-gMJ"/>
                                 </connections>
@@ -199,7 +199,8 @@
                                             <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="lfQ-KK-LrX" kind="show" id="2Hl-qA-vc6"/>
+                                            <action selector="findLocationButtonTapped:" destination="SA1-eP-QK3" eventType="touchUpInside" id="bEj-jA-Y8S"/>
+                                            <segue destination="lfQ-KK-LrX" kind="show" identifier="newLocation" id="2Hl-qA-vc6"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -384,12 +385,12 @@
                     <navigationItem key="navigationItem" title="On The Map" id="rzx-kA-BAG">
                         <barButtonItem key="backBarButtonItem" title="CANCEL" id="eMe-sr-AjW"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="gDw-9J-6RJ">
+                            <barButtonItem image="icon_pin" id="gDw-9J-6RJ">
                                 <connections>
                                     <segue destination="hyr-Pm-zjW" kind="presentation" id="oHg-0K-4Lx"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="refresh" id="tfd-hF-S3y">
+                            <barButtonItem image="icon_refresh" id="tfd-hF-S3y">
                                 <connections>
                                     <action selector="refreshTapped:" destination="8iI-gl-e30" id="I27-c5-xLV"/>
                                 </connections>
@@ -428,11 +429,13 @@
         <image name="icon_listview-selected" width="75" height="50"/>
         <image name="icon_mapview-deselected" width="75" height="50"/>
         <image name="icon_mapview-selected" width="75" height="50"/>
+        <image name="icon_pin" width="24" height="24"/>
+        <image name="icon_refresh" width="24" height="24"/>
         <image name="icon_world" width="52" height="67"/>
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LlE-So-s1f"/>
+        <segue reference="oHg-0K-4Lx"/>
         <segue reference="fnM-e2-MeS"/>
     </inferredMetricsTieBreakers>
 </document>

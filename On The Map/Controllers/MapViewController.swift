@@ -20,7 +20,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         MapClient.getStudentLocations { (students, error) in
             StudentModel.studentLocationData = students
-//            print(StudentModel.studentLocationData[0])
         
         let sean = StudentModel.studentLocationData[2]
         print(sean.longitude)

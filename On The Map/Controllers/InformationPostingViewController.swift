@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class InformationPostingViewController: UIViewController {
 
@@ -23,20 +24,23 @@ class InformationPostingViewController: UIViewController {
         findLocationButton.layer.cornerRadius = 20.0
         
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func findLocationButtonTapped(_ sender: Any) {
+        
     }
-    */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! NewLocationMapViewController
+        
+        // ***** use if or guard lets to show alert if theres an invalid input?
+        vc.location = locationTextfield.text!
+        vc.mediaURL = linkTextfield.text!
+    }
+
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 }

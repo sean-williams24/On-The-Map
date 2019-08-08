@@ -14,25 +14,58 @@ class NewLocationMapViewController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var finishButton: UIButton!
     
+    var location = ""
+    var mediaURL = ""
+    
+    let firstName = "Jack"
+    let lastName = "Bauer"
+
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         finishButton.layer.cornerRadius = 20.0
         
+        
+        let address = location
+        CLGeocoder().geocodeAddressString(address, completionHandler: { placemarks, error in
+            if (error != nil) {
+                return
+            }
+            
+            if let placemark = placemarks?[0]  {
+                let longitude = String(format: "%.04f", (placemark.location?.coordinate.longitude ?? 0.0)!)
+                let latitude = String(format: "%.04f", (placemark.location?.coordinate.latitude ?? 0.0)!)
+                let name = placemark.name!
+                let country = placemark.country!
+                let region = placemark.administrativeArea!
+                
+                let long = CLLocationDegrees(longitude) ?? 0
+                let lat = CLLocationDegrees(latitude) ?? 0
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(self.firstName) \(self.lastName): \(name) - \(region) / \(country)"
+                annotation.subtitle = self.mediaURL
+                
+                self.mapView.addAnnotation(annotation)
+                
+                let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 600, longitudinalMeters: 600)
+                self.mapView.setRegion(viewRegion, animated: true)
+                self.mapView.showsUserLocation = true
+                
+            }
+        })
+        
+        
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     @IBAction func finishButtonTapped(_ sender: Any) {
+        
+        
     }
 }
