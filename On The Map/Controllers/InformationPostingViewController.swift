@@ -15,8 +15,13 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet var linkTextfield: UITextField!
     @IBOutlet var findLocationButton: UIButton!
     @IBOutlet var cancelButton: UIBarButtonItem!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    
+    var longitude = 0.0
+    var latitude = 0.0
+    var name = ""
+    var region = ""
+    var country = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +32,51 @@ class InformationPostingViewController: UIViewController {
     }
     
     @IBAction func findLocationButtonTapped(_ sender: Any) {
+        self.setLoading(true)
         
+        guard let address = locationTextfield.text else { return }
+        CLGeocoder().geocodeAddressString(address, completionHandler: { placemarks, error in
+           
+            if error != nil {
+                self.setLoading(false)
+                DispatchQueue.main.async {
+                    self.showGeocodeFailure(message: "ERROR")
+                }
+            }
+            
+            if let placemark = placemarks?[0]  {
+                let longitude = String(format: "%.04f", (placemark.location?.coordinate.longitude ?? 0.0)!)
+                let latitude = String(format: "%.04f", (placemark.location?.coordinate.latitude ?? 0.0)!)
+                self.name = placemark.name!
+                self.country = placemark.country!
+                self.region = placemark.administrativeArea ?? ""
+                self.longitude = Double(longitude) ?? 0.0
+                self.latitude = Double(latitude) ?? 0.0
+                
+                self.performSegue(withIdentifier: "newLocation", sender: nil)
+                self.setLoading(false)
+
+            }
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! NewLocationMapViewController
-        
-        // ***** use if or guard lets to show alert if theres an invalid input?
-        vc.location = locationTextfield.text!
-        vc.mediaURL = linkTextfield.text!
+        if segue.identifier == "newLocation" {
+            let vc = segue.destination as! NewLocationMapViewController
+            
+            vc.longPost = longitude
+            vc.latPost = latitude
+            vc.location = locationTextfield.text!
+            if linkTextfield.text == "" {
+                vc.mediaURL = "udacity.com"
+            } else {
+                vc.mediaURL = linkTextfield.text!
+            }
+            vc.name = name
+            vc.country = country
+            vc.region = region
+        }
+ 
     }
 
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -43,4 +84,17 @@ class InformationPostingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    func setLoading(_ loading: Bool) {
+        if loading {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+    
+    func showGeocodeFailure(message: String) {
+        let alertVC = UIAlertController(title: "Unknown Location", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        show(alertVC, sender: nil)
+    }
 }

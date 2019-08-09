@@ -200,7 +200,6 @@
                                         </state>
                                         <connections>
                                             <action selector="findLocationButtonTapped:" destination="SA1-eP-QK3" eventType="touchUpInside" id="bEj-jA-Y8S"/>
-                                            <segue destination="lfQ-KK-LrX" kind="show" identifier="newLocation" id="2Hl-qA-vc6"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -208,15 +207,22 @@
                                     <constraint firstAttribute="height" constant="200" id="DDm-JN-EqG"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-0e-MAY">
+                                <rect key="frame" x="20" y="518" width="374" height="37"/>
+                                <color key="color" red="0.28012601500000001" green="0.65242962530000004" blue="0.80394432599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="xjf-0e-MAY" firstAttribute="top" secondItem="hcj-4F-qyZ" secondAttribute="bottom" constant="71" id="7Ef-A7-JuM"/>
                             <constraint firstItem="hcj-4F-qyZ" firstAttribute="top" secondItem="cY0-o4-LdM" secondAttribute="bottom" constant="-11" id="7Ia-19-GuW"/>
                             <constraint firstItem="9An-mS-TVw" firstAttribute="trailing" secondItem="hcj-4F-qyZ" secondAttribute="trailing" constant="20" id="Ffj-Bi-L6q"/>
                             <constraint firstItem="cY0-o4-LdM" firstAttribute="leading" secondItem="9An-mS-TVw" secondAttribute="leading" constant="16" id="LUA-u4-R98"/>
                             <constraint firstItem="hcj-4F-qyZ" firstAttribute="leading" secondItem="9An-mS-TVw" secondAttribute="leading" constant="20" id="NBv-NK-T4C"/>
                             <constraint firstItem="9An-mS-TVw" firstAttribute="trailing" secondItem="cY0-o4-LdM" secondAttribute="trailing" constant="16" id="aPS-pq-JzX"/>
                             <constraint firstItem="cY0-o4-LdM" firstAttribute="top" secondItem="9An-mS-TVw" secondAttribute="top" id="aYJ-Qh-e1l"/>
+                            <constraint firstItem="xjf-0e-MAY" firstAttribute="leading" secondItem="9An-mS-TVw" secondAttribute="leading" constant="20" id="wtr-j9-vZE"/>
+                            <constraint firstItem="9An-mS-TVw" firstAttribute="trailing" secondItem="xjf-0e-MAY" secondAttribute="trailing" constant="20" id="zAm-tG-mdL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9An-mS-TVw"/>
                     </view>
@@ -228,10 +234,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="xjf-0e-MAY" id="Rm8-SP-ejW"/>
                         <outlet property="cancelButton" destination="ori-8O-kzG" id="aVg-1d-spN"/>
                         <outlet property="findLocationButton" destination="XQf-Gj-Oia" id="84s-sL-h69"/>
                         <outlet property="linkTextfield" destination="scP-N1-3Oc" id="GwD-pC-4se"/>
                         <outlet property="locationTextfield" destination="kMI-Wx-eYu" id="3Xh-S9-1Gm"/>
+                        <segue destination="lfQ-KK-LrX" kind="show" identifier="newLocation" id="F51-zr-IkB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YYZ-e6-lLA" userLabel="First Responder" sceneMemberID="firstResponder"/>

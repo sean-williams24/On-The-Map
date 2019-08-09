@@ -40,7 +40,7 @@ class TableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         let student = StudentModel.studentLocationData[indexPath.row]
-        cell.textLabel?.text = student.firstName + student.lastName
+        cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
         cell.detailTextLabel?.text = student.mediaURL
         cell.imageView?.image = UIImage(named: "icon_pin")
         
