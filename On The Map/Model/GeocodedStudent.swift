@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GeocodedStudent {
+struct GeocodedStudent: Codable {
     static var location = ""
     static var mediaURL = ""
     static var latitude = 0.0

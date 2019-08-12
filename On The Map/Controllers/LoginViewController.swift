@@ -25,14 +25,26 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         attributedString.addAttribute(.link, value: url, range: NSRange(location: 23, length: 7))
         textView.attributedText = attributedString
         textView.textAlignment = .center
-        
-        
-        
     }
 
     @IBAction func loginButtonTapped(_ sender: Any) {
-
         
+        MapClient.login(username: emailTextfield.text ?? "", password: passwordTextfield.text ?? "", completion: handleLoginResponse(success:error:))
+    }
+    
+    func handleLoginResponse(success: Bool, error: Error?) {
+        if success {
+            print("Login Successful")
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+        } else {
+            self.loginErrorAlert(error: error?.localizedDescription ?? "")
+        }
+    }
+
+    func loginErrorAlert(error: String) {
+        let ac = UIAlertController(title: "Oops!", message: error, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        show(ac, sender: nil)
     }
     
 }

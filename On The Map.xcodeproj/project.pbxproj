@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE3422A02301796300E60ED5 /* LocationPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE34229F2301796300E60ED5 /* LocationPostResponse.swift */; };
 		CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE2822F9C48C0088505A /* AppDelegate.swift */; };
 		CECACE2B22F9C48C0088505A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE2A22F9C48C0088505A /* LoginViewController.swift */; };
 		CECACE2E22F9C48C0088505A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECACE2C22F9C48C0088505A /* Main.storyboard */; };
@@ -20,9 +21,12 @@
 		CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4A22FAE76B0088505A /* MapClient.swift */; };
 		CECACE4D22FAF2D90088505A /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4C22FAF2D90088505A /* StudentModel.swift */; };
 		CECACE5122FD61A70088505A /* GeocodedStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE5022FD61A70088505A /* GeocodedStudent.swift */; };
+		CECACE5322FDBB650088505A /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE5222FDBB650088505A /* LoginRequest.swift */; };
+		CECACE5522FDBD210088505A /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE5422FDBD210088505A /* LoginResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE34229F2301796300E60ED5 /* LocationPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPostResponse.swift; sourceTree = "<group>"; };
 		CECACE2522F9C48C0088505A /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECACE2822F9C48C0088505A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CECACE2A22F9C48C0088505A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +42,8 @@
 		CECACE4A22FAE76B0088505A /* MapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClient.swift; sourceTree = "<group>"; };
 		CECACE4C22FAF2D90088505A /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		CECACE5022FD61A70088505A /* GeocodedStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodedStudent.swift; sourceTree = "<group>"; };
+		CECACE5222FDBB650088505A /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		CECACE5422FDBD210088505A /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +102,13 @@
 		CECACE4522FAD4D20088505A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CECACE4A22FAE76B0088505A /* MapClient.swift */,
 				CECACE4C22FAF2D90088505A /* StudentModel.swift */,
 				CECACE4622FAE0AB0088505A /* StudentLocation.swift */,
-				CECACE4A22FAE76B0088505A /* MapClient.swift */,
+				CE34229F2301796300E60ED5 /* LocationPostResponse.swift */,
 				CECACE5022FD61A70088505A /* GeocodedStudent.swift */,
+				CECACE5222FDBB650088505A /* LoginRequest.swift */,
+				CECACE5422FDBD210088505A /* LoginResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,14 +186,17 @@
 			files = (
 				CECACE3E22FAC9270088505A /* TableTableViewController.swift in Sources */,
 				CECACE4D22FAF2D90088505A /* StudentModel.swift in Sources */,
+				CECACE5522FDBD210088505A /* LoginResponse.swift in Sources */,
 				CECACE4222FAC9D50088505A /* InformationPostingViewController.swift in Sources */,
 				CECACE5122FD61A70088505A /* GeocodedStudent.swift in Sources */,
 				CECACE4722FAE0AB0088505A /* StudentLocation.swift in Sources */,
 				CECACE2B22F9C48C0088505A /* LoginViewController.swift in Sources */,
 				CECACE4422FACA120088505A /* NewLocationMapViewController.swift in Sources */,
+				CE3422A02301796300E60ED5 /* LocationPostResponse.swift in Sources */,
 				CECACE3C22FAC9020088505A /* MapViewController.swift in Sources */,
 				CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */,
 				CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */,
+				CECACE5322FDBB650088505A /* LoginRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

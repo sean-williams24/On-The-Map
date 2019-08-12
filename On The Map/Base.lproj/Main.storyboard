@@ -62,7 +62,6 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="stg-L1-GWe"/>
-                                            <segue destination="Z5M-aN-Bad" kind="show" id="PnV-X7-b5u"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -264,7 +263,7 @@
                                     <constraint firstAttribute="height" constant="53.5" id="B0O-Z0-sNh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="FINISH">
+                                <state key="normal" title="SUBMIT">
                                     <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -444,6 +443,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LlE-So-s1f"/>
-        <segue reference="fnM-e2-MeS"/>
     </inferredMetricsTieBreakers>
 </document>

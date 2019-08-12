@@ -47,26 +47,26 @@ class NewLocationMapViewController: UIViewController {
 
 
     @IBAction func finishButtonTapped(_ sender: Any) {
-        
-        MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost) { (location, error) in
-            if let location = location {
-                StudentModel.studentLocationData.append(location)
-        
-            }
-        }
 
-        self.dismiss(animated: true) {
-        popToFirstVC()
-        }
-        
-        func popToFirstVC() {
-            MapClient.getStudentLocations { (response, error) in
+        MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
+    }
+    
+    func handlePostResponse(success: Bool, error: Error?) {
+        if success {
+            print("Post success")
+            self.dismiss(animated: true) {
                 if let firstViewController = self.navigationController?.viewControllers[1] {
                     self.navigationController?.popToViewController(firstViewController, animated: true)
                 }
             }
-
+        } else {
+            showPostError()
         }
-
+    }
+    
+    func showPostError() {
+        let alertVC = UIAlertController(title: "Posting Failure", message: "There was an error posting your location to the servers.", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertVC, animated: true)
     }
 }
