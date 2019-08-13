@@ -124,21 +124,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         for student in StudentModel.studentLocationData {
             if student.uniqueKey == "2222" {
                 // show alert
-                DispatchQueue.main.async {
                     let vc = UIAlertController(title: "Existing Location Found", message: "Would you like to update your exisiting location?", preferredStyle: .alert)
                     vc.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (segue) in
                         self.performSegue(withIdentifier: "mapPin", sender: segue)
                     }))
                     vc.addAction(UIAlertAction(title: "Cancel", style: .default))
                     self.present(vc, animated: true)
-                }
-
             } else {
                 performSegue(withIdentifier: "mapPin", sender: nil)
             }
         }
-        
     }
-    
  
+    @IBAction func logoutTapped(_ sender: Any) {
+        MapClient.logout {
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+
+            }
+        }
+    }
 }

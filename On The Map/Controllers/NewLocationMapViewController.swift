@@ -53,8 +53,7 @@ class NewLocationMapViewController: UIViewController {
                 MapClient.Auth.objectID = student.objectId
                 // If student with key 2222 exists in array, call PUT method to replace record.
                 MapClient.updateStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePutResponse(success:error:))
-
-                break
+                return
             } else {
                 MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
             }

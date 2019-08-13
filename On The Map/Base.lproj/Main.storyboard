@@ -83,6 +83,12 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jlc-cB-k3B">
+                                <rect key="frame" x="10" y="496" width="394" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="zBr-IS-j3B"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -91,7 +97,10 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p7U-xR-rO6" secondAttribute="trailing" constant="20" id="5WV-iB-UZa"/>
                             <constraint firstItem="hiT-51-lTM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="9Ee-NA-Sdq"/>
                             <constraint firstItem="gHg-Pi-0gE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Hhd-pp-tJz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jlc-cB-k3B" secondAttribute="trailing" constant="10" id="On9-A5-SbO"/>
+                            <constraint firstItem="jlc-cB-k3B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="UGr-kW-XaP"/>
                             <constraint firstItem="Dwy-Ok-1ne" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Xbf-NU-zbC"/>
+                            <constraint firstItem="jlc-cB-k3B" firstAttribute="top" secondItem="gHg-Pi-0gE" secondAttribute="bottom" constant="7.5" id="cLH-C1-5jR"/>
                             <constraint firstItem="Dwy-Ok-1ne" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="d82-Wc-qrg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hiT-51-lTM" secondAttribute="trailing" constant="16" id="i9d-dB-JD7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dwy-Ok-1ne" secondAttribute="trailing" constant="16" id="nFs-lj-1Tq"/>
@@ -102,6 +111,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityView" destination="jlc-cB-k3B" id="sKD-I7-Uvf"/>
                         <outlet property="emailTextfield" destination="RBw-gp-e50" id="fQW-YN-IbU"/>
                         <outlet property="loginButton" destination="lnx-ij-ONU" id="MNQ-ft-DqE"/>
                         <outlet property="passwordTextfield" destination="aAh-7k-hMd" id="JXI-wB-yXu"/>
@@ -139,10 +149,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="gDD-aJ-pNw">
                         <barButtonItem key="backBarButtonItem" title="CANCEL" id="Dez-IT-GFb"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" style="done" id="aPb-jj-4e2">
+                            <color key="tintColor" red="0.22647160291671753" green="0.58213311433792114" blue="0.91682857275009155" alpha="0.92893835619999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="logoutTapped:" destination="fjv-fE-5Uw" id="RUJ-i5-omC"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="icon_pin" id="tPH-6C-wdu">
                                 <connections>
-                                    <action selector="pinButtonTapped:" destination="fjv-fE-5Uw" id="uZa-rm-vnm"/>
+                                    <action selector="pinButtonTapped:" destination="fjv-fE-5Uw" id="KRu-91-oOu"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="icon_refresh" id="FzL-GB-g42">
@@ -171,13 +187,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="cY0-o4-LdM">
-                                <rect key="frame" x="16" y="88" width="382" height="170"/>
+                                <rect key="frame" x="16" y="88" width="382" height="120"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="9y9-er-WO6"/>
+                                    <constraint firstAttribute="height" constant="120" id="9y9-er-WO6"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hcj-4F-qyZ">
-                                <rect key="frame" x="20" y="247" width="374" height="200"/>
+                                <rect key="frame" x="20" y="218" width="374" height="200"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where are you?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kMI-Wx-eYu">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="53.5"/>
@@ -208,14 +224,14 @@
                                 </constraints>
                             </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-0e-MAY">
-                                <rect key="frame" x="20" y="518" width="374" height="37"/>
+                                <rect key="frame" x="20" y="458" width="374" height="37"/>
                                 <color key="color" red="0.28012601500000001" green="0.65242962530000004" blue="0.80394432599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xjf-0e-MAY" firstAttribute="top" secondItem="hcj-4F-qyZ" secondAttribute="bottom" constant="71" id="7Ef-A7-JuM"/>
-                            <constraint firstItem="hcj-4F-qyZ" firstAttribute="top" secondItem="cY0-o4-LdM" secondAttribute="bottom" constant="-11" id="7Ia-19-GuW"/>
+                            <constraint firstItem="xjf-0e-MAY" firstAttribute="top" secondItem="hcj-4F-qyZ" secondAttribute="bottom" constant="40" id="7Ef-A7-JuM"/>
+                            <constraint firstItem="hcj-4F-qyZ" firstAttribute="top" secondItem="cY0-o4-LdM" secondAttribute="bottom" constant="10" id="7Ia-19-GuW"/>
                             <constraint firstItem="9An-mS-TVw" firstAttribute="trailing" secondItem="hcj-4F-qyZ" secondAttribute="trailing" constant="20" id="Ffj-Bi-L6q"/>
                             <constraint firstItem="cY0-o4-LdM" firstAttribute="leading" secondItem="9An-mS-TVw" secondAttribute="leading" constant="16" id="LUA-u4-R98"/>
                             <constraint firstItem="hcj-4F-qyZ" firstAttribute="leading" secondItem="9An-mS-TVw" secondAttribute="leading" constant="20" id="NBv-NK-T4C"/>
@@ -392,10 +408,16 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="On The Map" id="rzx-kA-BAG">
                         <barButtonItem key="backBarButtonItem" title="CANCEL" id="eMe-sr-AjW"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" style="done" id="IfU-En-GgL">
+                            <color key="tintColor" red="0.22647160291671753" green="0.58213311433792114" blue="0.91682857275009155" alpha="0.92893835619999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="logoutTapped:" destination="8iI-gl-e30" id="5hX-p4-iqh"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="icon_pin" id="gDw-9J-6RJ">
                                 <connections>
-                                    <segue destination="hyr-Pm-zjW" kind="presentation" id="oHg-0K-4Lx"/>
+                                    <action selector="pinButtonTapped:" destination="8iI-gl-e30" id="wij-KL-Bdo"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="icon_refresh" id="tfd-hF-S3y">
@@ -407,6 +429,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="refreshButton" destination="tfd-hF-S3y" id="Re8-KQ-YBR"/>
+                        <segue destination="hyr-Pm-zjW" kind="presentation" identifier="mapPin2" id="SC3-gz-GSc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGP-b6-qfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -443,6 +466,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vPI-af-0Wo"/>
+        <segue reference="SC3-gz-GSc"/>
     </inferredMetricsTieBreakers>
 </document>

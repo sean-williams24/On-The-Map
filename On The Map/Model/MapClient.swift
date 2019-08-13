@@ -27,6 +27,7 @@ class MapClient {
         case getSessionID
         case postStudentLocation
         case updateStudentLocation
+        case deleteSession
         
         var stringValue: String {
             switch self {
@@ -34,6 +35,7 @@ class MapClient {
             case .getSessionID: return Endpoints.baseSession
             case .postStudentLocation: return Endpoints.baseStudentLocation
             case .updateStudentLocation: return Endpoints.baseStudentLocation + "/\(Auth.objectID)"
+            case .deleteSession: return Endpoints.baseSession
             }
         }
         
@@ -41,7 +43,7 @@ class MapClient {
             return URL(string: stringValue)!
         }
     }
-
+    
     // - 1. Authentitace API request, obtain Session ID and store Session ID
     
     class func taskForloginRequest<ResponseType: Decodable>(username: String, password: String, url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
@@ -76,6 +78,7 @@ class MapClient {
             if let response = response {
                 Auth.key = response.account.key
                 Auth.sessionID = response.session.ID
+                print("Session ID: \(Auth.sessionID)")
                 completion(true, nil)
             } else {
                 completion(false, error)
@@ -170,9 +173,13 @@ class MapClient {
             let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(LocationUpdateResponse.self, from: data)
-                completion(responseObject, nil)
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
             } catch {
-                completion(nil, error)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
             }
         }
         task.resume()
@@ -183,14 +190,49 @@ class MapClient {
         taskForPutStudentLocation(body: body) { (response, error) in
             if let response = response {
                 print("Location Update Success 1: \(response.updatedAt)")
-                completion(true, nil)
+                DispatchQueue.main.async {
+                    completion(true, nil)
+                }
             } else {
                 print(error!)
-                completion(false, error)
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
             }
         }
     }
     
+    
+    // 5. - Task for deleting a session and logout
+    
+    class func logout(completion: @escaping() -> Void) {
+        var request = URLRequest(url: Endpoints.deleteSession.url)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+                return
+            }
+            
+            let range = 5..<data!.count
+            let newData = data?.subdata(in: range)
+            print("Logout: \(String(data: newData!, encoding: .utf8)!)")
+            Auth.sessionID = ""
+            completion()
+        }
+        task.resume()
+    }
     
     
     

@@ -59,6 +59,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE3422A32302A09A00E60ED5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CECACE4C22FAF2D90088505A /* StudentModel.swift */,
+				CECACE4622FAE0AB0088505A /* StudentLocation.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CE3422A42302A0A300E60ED5 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				CECACE5222FDBB650088505A /* LoginRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		CE3422A52302A0AB00E60ED5 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				CECACE5422FDBD210088505A /* LoginResponse.swift */,
+				CE34229F2301796300E60ED5 /* LocationPostResponse.swift */,
+				CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 		CECACE1C22F9C48C0088505A = {
 			isa = PBXGroup;
 			children = (
@@ -105,13 +132,10 @@
 			isa = PBXGroup;
 			children = (
 				CECACE4A22FAE76B0088505A /* MapClient.swift */,
-				CECACE4C22FAF2D90088505A /* StudentModel.swift */,
-				CECACE4622FAE0AB0088505A /* StudentLocation.swift */,
-				CE34229F2301796300E60ED5 /* LocationPostResponse.swift */,
+				CE3422A52302A0AB00E60ED5 /* Responses */,
+				CE3422A42302A0A300E60ED5 /* Requests */,
+				CE3422A32302A09A00E60ED5 /* Data */,
 				CECACE5022FD61A70088505A /* GeocodedStudent.swift */,
-				CECACE5222FDBB650088505A /* LoginRequest.swift */,
-				CECACE5422FDBD210088505A /* LoginResponse.swift */,
-				CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

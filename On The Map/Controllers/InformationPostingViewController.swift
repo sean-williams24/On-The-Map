@@ -40,7 +40,7 @@ class InformationPostingViewController: UIViewController {
             if error != nil {
                 self.setLoading(false)
                 DispatchQueue.main.async {
-                    self.showGeocodeFailure(message: error?.localizedDescription ?? "Error finding location. Please try again.")
+                    self.showGeocodeFailure(message: "Error finding location. Please try again.")
                 }
             }
             
@@ -97,4 +97,14 @@ class InformationPostingViewController: UIViewController {
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertVC, animated: true)
     }
+    
+    
+    // MARK - Hide/show Keyboard
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
 }
+
+
