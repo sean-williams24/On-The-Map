@@ -22,7 +22,7 @@ class NewLocationMapViewController: UIViewController {
     var region = ""
     var country = ""
     let firstName = "Jack"
-    let lastName = "Bauer"
+    let lastName = "Reacher"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +47,18 @@ class NewLocationMapViewController: UIViewController {
 
 
     @IBAction func finishButtonTapped(_ sender: Any) {
+        
+        for student in StudentModel.studentLocationData {
+            if student.uniqueKey == "2222" {
+                MapClient.Auth.objectID = student.objectId
+                // If student with key 2222 exists in array, call PUT method to replace record.
+                MapClient.updateStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePutResponse(success:error:))
 
-        MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
+                break
+            } else {
+                MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
+            }
+        }
     }
     
     func handlePostResponse(success: Bool, error: Error?) {
@@ -63,6 +73,19 @@ class NewLocationMapViewController: UIViewController {
             showPostError()
         }
     }
+    
+    func handlePutResponse(success: Bool, error: Error?) {
+        if success {
+                self.dismiss(animated: true) {
+                    if let firstVC = self.navigationController?.viewControllers[1] {
+                        self.navigationController?.popToViewController(firstVC, animated: true)
+                    }
+                }
+        } else {
+            showPostError()
+        }
+    }
+    
     
     func showPostError() {
         let alertVC = UIAlertController(title: "Posting Failure", message: "There was an error posting your location to the servers.", preferredStyle: .alert)

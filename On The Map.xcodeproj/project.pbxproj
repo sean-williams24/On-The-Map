@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE3422A02301796300E60ED5 /* LocationPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE34229F2301796300E60ED5 /* LocationPostResponse.swift */; };
+		CE3422A22301B88900E60ED5 /* LocationUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */; };
 		CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE2822F9C48C0088505A /* AppDelegate.swift */; };
 		CECACE2B22F9C48C0088505A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE2A22F9C48C0088505A /* LoginViewController.swift */; };
 		CECACE2E22F9C48C0088505A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECACE2C22F9C48C0088505A /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		CE34229F2301796300E60ED5 /* LocationPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPostResponse.swift; sourceTree = "<group>"; };
+		CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateResponse.swift; sourceTree = "<group>"; };
 		CECACE2522F9C48C0088505A /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECACE2822F9C48C0088505A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CECACE2A22F9C48C0088505A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				CECACE5022FD61A70088505A /* GeocodedStudent.swift */,
 				CECACE5222FDBB650088505A /* LoginRequest.swift */,
 				CECACE5422FDBD210088505A /* LoginResponse.swift */,
+				CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				CECACE3C22FAC9020088505A /* MapViewController.swift in Sources */,
 				CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */,
 				CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */,
+				CE3422A22301B88900E60ED5 /* LocationUpdateResponse.swift in Sources */,
 				CECACE5322FDBB650088505A /* LoginRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

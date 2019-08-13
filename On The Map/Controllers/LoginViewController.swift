@@ -42,7 +42,7 @@ class LoginViewController: UIViewController, UITextViewDelegate {
     }
 
     func loginErrorAlert(error: String) {
-        let ac = UIAlertController(title: "Oops!", message: error, preferredStyle: .alert)
+        let ac = UIAlertController(title: "Login Failed", message: error, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         show(ac, sender: nil)
     }

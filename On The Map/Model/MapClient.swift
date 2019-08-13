@@ -15,22 +15,25 @@ class MapClient {
     struct Auth {
         static var key = ""
         static var sessionID = ""
+        static let uniqueKey = "2222"
+        static var objectID = ""
     }
     
     enum Endpoints {
         static let baseStudentLocation = "https://onthemap-api.udacity.com/v1/StudentLocation"
         static let baseSession = "https://onthemap-api.udacity.com/v1/session"
         
-        
         case getStudentLocation
         case getSessionID
         case postStudentLocation
+        case updateStudentLocation
         
         var stringValue: String {
             switch self {
             case .getStudentLocation: return Endpoints.baseStudentLocation + "?order=-updatedAt"
             case .getSessionID: return Endpoints.baseSession
             case .postStudentLocation: return Endpoints.baseStudentLocation
+            case .updateStudentLocation: return Endpoints.baseStudentLocation + "/\(Auth.objectID)"
             }
         }
         
@@ -38,9 +41,6 @@ class MapClient {
             return URL(string: stringValue)!
         }
     }
-
-    
-
 
     // - 1. Authentitace API request, obtain Session ID and store Session ID
     
@@ -56,7 +56,6 @@ class MapClient {
             }
             let range = 5..<data.count
             let newData = data.subdata(in: range)
-            print(String(data: newData, encoding: .utf8)!)
             let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: newData)
@@ -114,7 +113,7 @@ class MapClient {
         var request = URLRequest(url: Endpoints.postStudentLocation.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = body
+//        let body = body
         request.httpBody = try! JSONEncoder().encode(body)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -143,7 +142,7 @@ class MapClient {
     
     class func postStudentLocation(firstName: String, lastName: String, mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?) -> Void) {
         
-        let body = StudentLocation(objectId: "", uniqueKey: "1111", firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
+        let body = StudentLocation(objectId: "", uniqueKey: Auth.uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
         taskForPostStudentLocation(body: body) { (response, error) in
             if let response = response {
                 print("ObjectID: \(response.objectId)")
@@ -152,13 +151,45 @@ class MapClient {
                 completion(false, error)
             }
         }
-        
-}
+    }
+    
+    // 4. - Update exisiting location with PUT method
     
     
+    class func taskForPutStudentLocation(body: StudentLocation, completion: @escaping(LocationUpdateResponse?, Error?) -> Void) {
+        var request = URLRequest(url: Endpoints.updateStudentLocation.url)
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONEncoder().encode(body)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                print("data error: \(error!)")
+                completion(nil, error)
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(LocationUpdateResponse.self, from: data)
+                completion(responseObject, nil)
+            } catch {
+                completion(nil, error)
+            }
+        }
+        task.resume()
+    }
     
-    
-    
+    class func updateStudentLocation(firstName: String, lastName: String, mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?) -> Void) {
+        let body = StudentLocation(objectId: Auth.objectID, uniqueKey: Auth.uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
+        taskForPutStudentLocation(body: body) { (response, error) in
+            if let response = response {
+                print("Location Update Success 1: \(response.updatedAt)")
+                completion(true, nil)
+            } else {
+                print(error!)
+                completion(false, error)
+            }
+        }
+    }
     
     
     
