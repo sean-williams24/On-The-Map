@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import FBSDKLoginKit
+
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -27,13 +29,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func loadMapAnnotations() {
+        mapView.removeAnnotations(annotations)
+        annotations = []
+      
         MapClient.getStudentLocations { (response, error) in
-            if error != nil {
-                // present alert controller showing error //
-                return
-            }
-            StudentModel.studentLocationData = response
+            if error != nil { return }
             
+            StudentModel.studentLocationData = response
             let locations = StudentModel.studentLocationData
             
             for student in locations {
@@ -50,7 +52,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annotation.title = "\(first) \(last)"
                 annotation.subtitle = mediaURL
                 
-                // Finally we place the annotation in an array of annotations.
+                // Place the annotation in an array of annotations.
                 self.annotations.append(annotation)
             }
             
@@ -69,6 +71,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 print("LOADED MAP ANNOTATIONS")
             }
         }
+        
+        
     }
 
     
@@ -137,11 +141,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
  
     @IBAction func logoutTapped(_ sender: Any) {
-        MapClient.logout {
-            DispatchQueue.main.async {
-                self.dismiss(animated: true, completion: nil)
-
-            }
+        
+        if MapClient.Auth.FacebookLogin == true {
+            // Logout of facebook
+            LoginManager().logOut()
+            MapClient.Auth.FacebookLogin = false
+        } else {
+            MapClient.logout {}
+        }
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

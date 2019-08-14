@@ -17,6 +17,7 @@ class MapClient {
         static var sessionID = ""
         static let uniqueKey = "2222"
         static var objectID = ""
+        static var FacebookLogin = false
     }
     
     enum Endpoints {
@@ -54,6 +55,8 @@ class MapClient {
         request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
+                print("Reached guard block")
+                completion(nil, error)
                 return
             }
             let range = 5..<data.count
@@ -64,8 +67,10 @@ class MapClient {
                 DispatchQueue.main.async {
                     completion(responseObject, nil)
                 }
-            } catch {
+            } catch let error as NSError {
                 DispatchQueue.main.async {
+                    print("error code \(error.code)")
+                    print("Description \(error.localizedDescription)")
                     completion(nil, error)
                 }
             }
@@ -79,9 +84,13 @@ class MapClient {
                 Auth.key = response.account.key
                 Auth.sessionID = response.session.ID
                 print("Session ID: \(Auth.sessionID)")
-                completion(true, nil)
+                DispatchQueue.main.async {
+                    completion(true, nil)
+                }
             } else {
-                completion(false, error)
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
             }
         }
     }
@@ -221,7 +230,7 @@ class MapClient {
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
                 return
             }
             

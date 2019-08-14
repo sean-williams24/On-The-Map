@@ -40,7 +40,7 @@ class InformationPostingViewController: UIViewController {
             if error != nil {
                 self.setLoading(false)
                 DispatchQueue.main.async {
-                    self.showGeocodeFailure(message: "Error finding location. Please try again.")
+                    self.showGeocodeFailure(message: "Problem finding location. Please try again.")
                 }
             }
             
@@ -90,6 +90,9 @@ class InformationPostingViewController: UIViewController {
         } else {
             activityIndicator.stopAnimating()
         }
+        locationTextfield.isEnabled = !loading
+        linkTextfield.isEnabled = !loading
+        findLocationButton.isEnabled = !loading
     }
     
     func showGeocodeFailure(message: String) {
