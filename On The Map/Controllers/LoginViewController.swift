@@ -48,7 +48,7 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
         }
     }
     
-    // MARK - Facebook login delegates
+    // MARK: - Facebook login delegates
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         guard let result = result else { return }
@@ -70,8 +70,6 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
         print("Logged Out")
     }
 
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         if (AccessToken.current != nil && MapClient.Auth.FacebookLogin == true)
         {

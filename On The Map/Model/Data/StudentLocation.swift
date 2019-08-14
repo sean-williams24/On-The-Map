@@ -18,11 +18,4 @@ struct StudentLocation: Codable, Equatable {
     let latitude: Double
     let longitude: Double
     
-//    enum CodingKeys: String, CodingKey {
-//        case firstName
-//        case lastName
-//        case mediaURL
-//        case latitude
-//        case longitude
-//    }
 }

@@ -21,8 +21,8 @@ class NewLocationMapViewController: UIViewController {
     var name = ""
     var region = ""
     var country = ""
-    let firstName = "Jack"
-    let lastName = "Reacher"
+    let firstName = "Brian"
+    let lastName = "Cox"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +49,14 @@ class NewLocationMapViewController: UIViewController {
     @IBAction func finishButtonTapped(_ sender: Any) {
         
         for student in StudentModel.studentLocationData {
-            if student.uniqueKey == "2222" {
+            
+            // If students unique key exists in array, call PUT method to replace record.
+            if student.uniqueKey == MapClient.Auth.uniqueKey {
                 MapClient.Auth.objectID = student.objectId
-                // If student with key 2222 exists in array, call PUT method to replace record.
+                
                 MapClient.updateStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePutResponse(success:error:))
                 return
+                
             } else {
                 MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
             }

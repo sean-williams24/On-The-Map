@@ -33,11 +33,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         annotations = []
       
         MapClient.getStudentLocations { (response, error) in
-            if error != nil { return }
+            if error != nil {
+                self.downloadErrorAlert()
+                return
+                
+            }
             
             StudentModel.studentLocationData = response
             let locations = StudentModel.studentLocationData
-            
+            print(locations)
             for student in locations {
                 let lat = CLLocationDegrees(student.latitude)
                 let long = CLLocationDegrees(student.longitude)
@@ -78,7 +82,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     
-    // Create a view with a "right callout accessory view".
+    // Create a view with a right callout accessory view.
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -100,8 +104,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    // This delegate method is implemented to respond to taps. It opens the system browser
-    // to the URL specified in the annotationViews subtitle property.
+    // This delegate method is implemented to respond to taps. Opens the system browser to the URL specified in the annotationViews subtitle property.
+    
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
@@ -125,7 +129,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func pinButtonTapped(_ sender: Any) {
         
         for student in StudentModel.studentLocationData {
-            if student.uniqueKey == "2222" {
+            if student.uniqueKey == MapClient.Auth.uniqueKey {
                 // show alert
                     let vc = UIAlertController(title: "Existing Location Found", message: "Would you like to update your exisiting location?", preferredStyle: .alert)
                     vc.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (segue) in
@@ -151,5 +155,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func downloadErrorAlert() {
+        let ac = UIAlertController(title: "Download Failed", message: "There was a problem trying to get student locations from the server. Please try refreshing the page.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(ac, animated: true)
     }
 }

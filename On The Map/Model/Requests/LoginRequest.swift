@@ -12,7 +12,3 @@ struct LoginRequest: Codable {
     let username: String
     let password: String
 }
-
-//struct Login: Codable {
-//    let Udacity: 
-//}

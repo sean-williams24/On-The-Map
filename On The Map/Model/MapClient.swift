@@ -9,13 +9,12 @@
 import Foundation
 import UIKit
 
-
 class MapClient {
     
     struct Auth {
         static var key = ""
         static var sessionID = ""
-        static let uniqueKey = "2222"
+        static let uniqueKey = "101010"
         static var objectID = ""
         static var FacebookLogin = false
     }
@@ -45,7 +44,8 @@ class MapClient {
         }
     }
     
-    // - 1. Authentitace API request, obtain Session ID and store Session ID
+    
+    // MARK: - 1. Authentitace API request, obtain Session ID and store Session ID
     
     class func taskForloginRequest<ResponseType: Decodable>(username: String, password: String, url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
         var request = URLRequest(url: url)
@@ -96,7 +96,7 @@ class MapClient {
     }
     
     
-    // - 2. Download and parse student location data and store in studentLocationData array
+    // MARK: - 2. Download and parse student location data and store in studentLocationData array
     
     class func getStudentLocations(completion: @escaping ([StudentLocation], Error?) -> Void) {
         let request = URLRequest(url: Endpoints.getStudentLocation.url)
@@ -112,6 +112,7 @@ class MapClient {
                 let flattened = Array(responseObject.joined())
                 completion(flattened, nil)
             } catch {
+                completion([], error)
                 print(error)
             }
         }
@@ -119,13 +120,12 @@ class MapClient {
     }
     
     
-    // 3. - Post a new student location
+    // MARK: - 3. Post a new student location
     
     class func taskForPostStudentLocation(body: StudentLocation, completion: @escaping (LocationPostResponse?, Error?) -> Void) {
         var request = URLRequest(url: Endpoints.postStudentLocation.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        let body = body
         request.httpBody = try! JSONEncoder().encode(body)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -165,8 +165,8 @@ class MapClient {
         }
     }
     
-    // 4. - Update exisiting location with PUT method
     
+    // MARK: - 4. Update exisiting location with PUT method
     
     class func taskForPutStudentLocation(body: StudentLocation, completion: @escaping(LocationUpdateResponse?, Error?) -> Void) {
         var request = URLRequest(url: Endpoints.updateStudentLocation.url)
@@ -212,7 +212,7 @@ class MapClient {
     }
     
     
-    // 5. - Task for deleting a session and logout
+    // MARK: - 5. Task for deleting a session and logout
     
     class func logout(completion: @escaping() -> Void) {
         var request = URLRequest(url: Endpoints.deleteSession.url)
@@ -239,42 +239,6 @@ class MapClient {
             print("Logout: \(String(data: newData!, encoding: .utf8)!)")
             Auth.sessionID = ""
             completion()
-        }
-        task.resume()
-    }
-    
-    
-    
-    // Refactored (2) get student locations -
-    class func getStudentLocations2(completion: @escaping ([StudentLocation], Error?) -> Void) {
-        taskForGetRequest(url: Endpoints.getStudentLocation.url, response: [String:[StudentLocation]].self) { (response, error) in
-            if let response = response {
-                let studentLocations = response.values.map({$0})
-                let flattenedArrays = Array(studentLocations.joined())
-                completion(flattenedArrays, nil)
-            } else {
-                completion([], error)
-            }
-        }
-    }
-    
-    
-    class func taskForGetRequest<ResponseType: Decodable>(url: URL, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data  else {
-                completion(nil, error)
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
-                DispatchQueue.main.async {
-                    completion(responseObject, nil)
-                }
-            } catch {
-                print(error)
-            }
         }
         task.resume()
     }

@@ -27,8 +27,6 @@ class InformationPostingViewController: UIViewController {
         super.viewDidLoad()
         
         findLocationButton.layer.cornerRadius = 20.0
-        
-
     }
     
     @IBAction func findLocationButtonTapped(_ sender: Any) {
@@ -55,7 +53,6 @@ class InformationPostingViewController: UIViewController {
                 
                 self.performSegue(withIdentifier: "newLocation", sender: nil)
                 self.setLoading(false)
-
             }
         })
     }
@@ -76,7 +73,6 @@ class InformationPostingViewController: UIViewController {
             vc.country = country
             vc.region = region
         }
- 
     }
 
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -104,7 +100,7 @@ class InformationPostingViewController: UIViewController {
     }
     
     
-    // MARK - Hide/show Keyboard
+    // MARK: - Hide/show Keyboard
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
