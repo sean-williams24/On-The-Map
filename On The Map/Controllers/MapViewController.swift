@@ -36,12 +36,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if error != nil {
                 self.downloadErrorAlert()
                 return
-                
             }
             
             StudentModel.studentLocationData = response
             let locations = StudentModel.studentLocationData
-            print(locations)
             for student in locations {
                 let lat = CLLocationDegrees(student.latitude)
                 let long = CLLocationDegrees(student.longitude)
@@ -72,7 +70,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500000, longitudinalMeters: 500000)
                 self.mapView.setRegion(viewRegion, animated: true)
                 self.mapView.showsUserLocation = true
-                print("LOADED MAP ANNOTATIONS")
             }
         }
         
@@ -131,13 +128,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         for student in StudentModel.studentLocationData {
             if student.uniqueKey == MapClient.Auth.uniqueKey {
                 // show alert
+                    MapClient.Auth.updatingLocation = true
+                    MapClient.Auth.objectID = student.objectId
+                
                     let vc = UIAlertController(title: "Existing Location Found", message: "Would you like to update your exisiting location?", preferredStyle: .alert)
                     vc.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (segue) in
                         self.performSegue(withIdentifier: "mapPin", sender: segue)
                     }))
                     vc.addAction(UIAlertAction(title: "Cancel", style: .default))
                     self.present(vc, animated: true)
+                return
+                
             } else {
+                MapClient.Auth.updatingLocation = false
                 performSegue(withIdentifier: "mapPin", sender: nil)
             }
         }
@@ -145,10 +148,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
  
     @IBAction func logoutTapped(_ sender: Any) {
         
-        if MapClient.Auth.FacebookLogin == true {
+        if MapClient.Auth.facebookLogin == true {
             // Logout of facebook
             LoginManager().logOut()
-            MapClient.Auth.FacebookLogin = false
+            MapClient.Auth.facebookLogin = false
         } else {
             MapClient.logout {}
         }

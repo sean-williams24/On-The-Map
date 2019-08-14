@@ -14,9 +14,10 @@ class MapClient {
     struct Auth {
         static var key = ""
         static var sessionID = ""
-        static let uniqueKey = "101010"
+        static let uniqueKey = "123456778"
         static var objectID = ""
-        static var FacebookLogin = false
+        static var facebookLogin = false
+        static var updatingLocation = false
     }
     
     enum Endpoints {
@@ -157,7 +158,7 @@ class MapClient {
         let body = StudentLocation(objectId: "", uniqueKey: Auth.uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
         taskForPostStudentLocation(body: body) { (response, error) in
             if let response = response {
-                print("ObjectID: \(response.objectId)")
+                Auth.objectID = response.objectId
                 completion(true, nil)
             } else {
                 completion(false, error)
@@ -198,7 +199,6 @@ class MapClient {
         let body = StudentLocation(objectId: Auth.objectID, uniqueKey: Auth.uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
         taskForPutStudentLocation(body: body) { (response, error) in
             if let response = response {
-                print("Location Update Success 1: \(response.updatedAt)")
                 DispatchQueue.main.async {
                     completion(true, nil)
                 }

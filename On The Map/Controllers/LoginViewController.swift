@@ -61,7 +61,7 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
             // Handle cancellations
         }
         else {
-            MapClient.Auth.FacebookLogin = true
+            MapClient.Auth.facebookLogin = true
             print("FB LOGIN SUCCESS")
         }
     }
@@ -71,7 +71,7 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if (AccessToken.current != nil && MapClient.Auth.FacebookLogin == true)
+        if (AccessToken.current != nil && MapClient.Auth.facebookLogin == true)
         {
             performSegue(withIdentifier: "loginSegue", sender: self)
         }

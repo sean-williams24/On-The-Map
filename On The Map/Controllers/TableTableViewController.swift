@@ -12,6 +12,10 @@ class TableTableViewController: UITableViewController {
 
     @IBOutlet var refreshButton: UIBarButtonItem!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadLocations()        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,10 @@ class TableTableViewController: UITableViewController {
     }
 
     @IBAction func refreshTapped(_ sender: Any) {
+        loadLocations()
+    }
+    
+    func loadLocations() {
         MapClient.getStudentLocations { (students, error) in
             StudentModel.studentLocationData = students
             DispatchQueue.main.async {
@@ -52,7 +60,9 @@ class TableTableViewController: UITableViewController {
     @IBAction func pinButtonTapped(_ sender: Any) {
         for student in StudentModel.studentLocationData {
             if student.uniqueKey == MapClient.Auth.uniqueKey {
-                // show alert
+                MapClient.Auth.updatingLocation = true
+                MapClient.Auth.objectID = student.objectId
+                
                 let vc = UIAlertController(title: "Existing Location Found", message: "Would you like to update your exisiting location?", preferredStyle: .alert)
                 vc.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (segue) in
                     self.performSegue(withIdentifier: "mapPin2", sender: segue)
@@ -60,6 +70,7 @@ class TableTableViewController: UITableViewController {
                 vc.addAction(UIAlertAction(title: "Cancel", style: .default))
                 self.present(vc, animated: true)
             } else {
+                MapClient.Auth.updatingLocation = false
                 performSegue(withIdentifier: "mapPin2", sender: nil)
             }
         }
