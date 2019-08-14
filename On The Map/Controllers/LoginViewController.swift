@@ -35,8 +35,11 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
         textView.attributedText = attributedString
         textView.textAlignment = .center
         
+        // Facebook login button
+        
         let loginButton = FBLoginButton(permissions: [ .publicProfile ])
-        loginButton.center = view.center
+        loginButton.center.x = self.view.center.x
+        loginButton.frame.origin.y = self.view.frame.height - (loginButton.frame.height * 3)
         loginButton.delegate = self
         view.addSubview(loginButton)
         
