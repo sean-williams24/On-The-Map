@@ -22,7 +22,6 @@
 		CECACE4722FAE0AB0088505A /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4622FAE0AB0088505A /* StudentLocation.swift */; };
 		CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4A22FAE76B0088505A /* MapClient.swift */; };
 		CECACE4D22FAF2D90088505A /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE4C22FAF2D90088505A /* StudentModel.swift */; };
-		CECACE5122FD61A70088505A /* GeocodedStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE5022FD61A70088505A /* GeocodedStudent.swift */; };
 		CECACE5322FDBB650088505A /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE5222FDBB650088505A /* LoginRequest.swift */; };
 		CECACE5522FDBD210088505A /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE5422FDBD210088505A /* LoginResponse.swift */; };
 /* End PBXBuildFile section */
@@ -46,7 +45,6 @@
 		CECACE4622FAE0AB0088505A /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		CECACE4A22FAE76B0088505A /* MapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClient.swift; sourceTree = "<group>"; };
 		CECACE4C22FAF2D90088505A /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
-		CECACE5022FD61A70088505A /* GeocodedStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodedStudent.swift; sourceTree = "<group>"; };
 		CECACE5222FDBB650088505A /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		CECACE5422FDBD210088505A /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		F598BEEF460F19DD8E9777B2 /* Pods-On The Map.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-On The Map.debug.xcconfig"; path = "Target Support Files/Pods-On The Map/Pods-On The Map.debug.xcconfig"; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 				F598BEEF460F19DD8E9777B2 /* Pods-On The Map.debug.xcconfig */,
 				792E5907B1C9FC9554AA53A5 /* Pods-On The Map.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -160,7 +157,6 @@
 				CE3422A52302A0AB00E60ED5 /* Responses */,
 				CE3422A42302A0A300E60ED5 /* Requests */,
 				CE3422A32302A09A00E60ED5 /* Data */,
-				CECACE5022FD61A70088505A /* GeocodedStudent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,7 +295,6 @@
 				CECACE4D22FAF2D90088505A /* StudentModel.swift in Sources */,
 				CECACE5522FDBD210088505A /* LoginResponse.swift in Sources */,
 				CECACE4222FAC9D50088505A /* InformationPostingViewController.swift in Sources */,
-				CECACE5122FD61A70088505A /* GeocodedStudent.swift in Sources */,
 				CECACE4722FAE0AB0088505A /* StudentLocation.swift in Sources */,
 				CECACE2B22F9C48C0088505A /* LoginViewController.swift in Sources */,
 				CECACE4422FACA120088505A /* NewLocationMapViewController.swift in Sources */,

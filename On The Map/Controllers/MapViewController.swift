@@ -78,9 +78,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     
-    // Here we create a view with a "right callout accessory view". You might choose to look into other
-    // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
-    // method in TableViewDataSource.
+    // Create a view with a "right callout accessory view".
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
@@ -90,7 +89,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinTintColor = .red
+            pinView!.pinTintColor = .blue
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {

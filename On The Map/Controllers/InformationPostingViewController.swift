@@ -87,8 +87,10 @@ class InformationPostingViewController: UIViewController {
     func setLoading(_ loading: Bool) {
         if loading {
             activityIndicator.startAnimating()
+            findLocationButton.alpha = 0.2
         } else {
             activityIndicator.stopAnimating()
+            findLocationButton.alpha = 1.0
         }
         locationTextfield.isEnabled = !loading
         linkTextfield.isEnabled = !loading

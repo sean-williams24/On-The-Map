@@ -21,13 +21,11 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
     @IBOutlet var textView: UITextView!
     @IBOutlet var activityView: UIActivityIndicatorView!
     
-    var fbLoginSuccess = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.center = self.view.center
         loginButton.layer.cornerRadius = 20.0
-        
+        LoginManager().logOut()
         
         let attributedString = NSMutableAttributedString(string: "Don't have an account? Sign Up")
         let url = "https://www.google.com/url?q=https://www.udacity.com/account/auth%23!/signup&sa=D&ust=1565099137593000"
@@ -125,8 +123,12 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
     func loggingIn(_ loggingIn: Bool) {
         if loggingIn {
             activityView.startAnimating()
+            loginButton.alpha = 0.2
+
         } else {
             activityView.stopAnimating()
+            loginButton.alpha = 1.0
+
         }
         emailTextfield.isEnabled = !loggingIn
         passwordTextfield.isEnabled = !loggingIn
