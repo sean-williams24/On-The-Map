@@ -21,8 +21,8 @@ class NewLocationMapViewController: UIViewController {
     var name = ""
     var region = ""
     var country = ""
-    let firstName = "Miss"
-    let lastName = "Moneypenny"
+    let firstName = "Quentin"
+    let lastName = "Tarantino"
     
     override func viewDidLoad() {
         super.viewDidLoad()

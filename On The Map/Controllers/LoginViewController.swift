@@ -35,11 +35,11 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
         
         // Facebook login button
         
-        let loginButton = FBLoginButton(permissions: [ .publicProfile ])
-        loginButton.center.x = self.view.center.x
-        loginButton.frame.origin.y = self.view.frame.height - (loginButton.frame.height * 3)
-        loginButton.delegate = self
-        view.addSubview(loginButton)
+        let FBloginButton = FBLoginButton(permissions: [ .publicProfile ])
+        FBloginButton.center.x = self.view.center.x
+        FBloginButton.frame.origin.y = self.view.frame.height - (FBloginButton.frame.height * 3)
+        FBloginButton.delegate = self
+        view.addSubview(FBloginButton)
         
         if let accessToken = AccessToken.current {
             // User already logged in with FaceBook

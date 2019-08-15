@@ -61,15 +61,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             DispatchQueue.main.async {
                 // When the array is complete, we add the annotations to the map.
                 self.mapView.addAnnotations(self.annotations)
-                
-                let firstViewPin = StudentModel.studentLocationData[0]
-                let lat = CLLocationDegrees(firstViewPin.latitude)
-                let long = CLLocationDegrees(firstViewPin.longitude)
-                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                
-                let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500000, longitudinalMeters: 500000)
-                self.mapView.setRegion(viewRegion, animated: true)
-                self.mapView.showsUserLocation = true
+                for student in StudentModel.studentLocationData {
+                    if student.uniqueKey == MapClient.Auth.uniqueKey {
+//                        let firstViewPin = StudentModel.studentLocationData[0]
+                        let lat = CLLocationDegrees(student.latitude)
+                        let long = CLLocationDegrees(student.longitude)
+                        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                        
+                        let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500000, longitudinalMeters: 500000)
+                        self.mapView.setRegion(viewRegion, animated: true)
+                        self.mapView.showsUserLocation = true
+                        break
+                    }
+                }
+
             }
         }
         

@@ -14,7 +14,7 @@ class MapClient {
     struct Auth {
         static var key = ""
         static var sessionID = ""
-        static let uniqueKey = "123456778"
+        static let uniqueKey = "0987654"
         static var objectID = ""
         static var facebookLogin = false
         static var updatingLocation = false
