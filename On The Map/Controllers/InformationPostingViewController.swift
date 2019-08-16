@@ -38,7 +38,7 @@ class InformationPostingViewController: UIViewController {
             if error != nil {
                 self.setLoading(false)
                 DispatchQueue.main.async {
-                    self.showGeocodeFailure(message: "Problem finding location. Please try again.")
+                    self.showErrorAlert(title: "Unknown Location", error: "Problem finding location. Please try again.")
                 }
             }
             
@@ -91,12 +91,6 @@ class InformationPostingViewController: UIViewController {
         locationTextfield.isEnabled = !loading
         linkTextfield.isEnabled = !loading
         findLocationButton.isEnabled = !loading
-    }
-    
-    func showGeocodeFailure(message: String) {
-        let alertVC = UIAlertController(title: "Unknown Location", message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertVC, animated: true)
     }
     
     

@@ -34,7 +34,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
       
         MapClient.getStudentLocations { (response, error) in
             if error != nil {
-                self.downloadErrorAlert()
+                self.showErrorAlert(title: "Download Failed", error: "There was a problem trying to get student locations from the server. Please try refreshing the page.")
                 return
             }
             
@@ -61,9 +61,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             DispatchQueue.main.async {
                 // When the array is complete, we add the annotations to the map.
                 self.mapView.addAnnotations(self.annotations)
+                
                 for student in StudentModel.studentLocationData {
                     if student.uniqueKey == MapClient.Auth.uniqueKey {
-//                        let firstViewPin = StudentModel.studentLocationData[0]
                         let lat = CLLocationDegrees(student.latitude)
                         let long = CLLocationDegrees(student.longitude)
                         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -112,7 +112,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
+                if let url = URL(string: toOpen) {
+                    app.open(url, options: [:], completionHandler: nil)
+                }
             }
         }
     }
@@ -163,11 +165,5 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
-    }
-    
-    func downloadErrorAlert() {
-        let ac = UIAlertController(title: "Download Failed", message: "There was a problem trying to get student locations from the server. Please try refreshing the page.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(ac, animated: true)
     }
 }

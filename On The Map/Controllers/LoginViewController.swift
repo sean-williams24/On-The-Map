@@ -88,6 +88,9 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
     func handleLoginResponse(success: Bool, error: Error?) {
         if success {
             print("Login Successful")
+            MapClient.getPublicUserInfo { (response, error) in
+                print(error?.localizedDescription as Any)
+            }
             self.performSegue(withIdentifier: "loginSegue", sender: nil)
             passwordTextfield.text = ""
             loggingIn(false)
@@ -95,23 +98,18 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
             let error = error! as NSError
             
             if error.code == -1001 || error.code == -999 {
-                self.loginErrorAlert(error: error.localizedDescription)
+                self.showErrorAlert(title: "Login Failed", error: error.localizedDescription)
             } else if error.code == 4865 {
-                self.loginErrorAlert(error: "The Username or Password was incorrect")
+                self.showErrorAlert(title: "Login Failed", error: "The Username or Password was incorrect")
             } else if error.code == 4864 {
-                self.loginErrorAlert(error: "There was a problem trying to connect to the network")
+                self.showErrorAlert(title: "Login Failed", error: "There was a problem trying to connect to the network")
             } else {
-                self.loginErrorAlert(error: error.localizedDescription)
+                self.showErrorAlert(title: "Login Failed", error: error.localizedDescription)
             }
             loggingIn(false)
         }
     }
 
-    func loginErrorAlert(error: String) {
-        let ac = UIAlertController(title: "Login Failed", message: error, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        show(ac, sender: nil)
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

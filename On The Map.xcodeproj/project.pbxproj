@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9376F94D48899809DCAADC95 /* Pods_On_The_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DFB11BCDC27FF94F896EBE /* Pods_On_The_Map.framework */; };
+		CE042A7F2305C2E000E57E55 /* UIViewController Extension + ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE042A7E2305C2E000E57E55 /* UIViewController Extension + ErrorAlert.swift */; };
+		CE042A812306A1F200E57E55 /* UserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE042A802306A1F200E57E55 /* UserInfoResponse.swift */; };
 		CE3422A02301796300E60ED5 /* LocationPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE34229F2301796300E60ED5 /* LocationPostResponse.swift */; };
 		CE3422A22301B88900E60ED5 /* LocationUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */; };
 		CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECACE2822F9C48C0088505A /* AppDelegate.swift */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		792E5907B1C9FC9554AA53A5 /* Pods-On The Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-On The Map.release.xcconfig"; path = "Target Support Files/Pods-On The Map/Pods-On The Map.release.xcconfig"; sourceTree = "<group>"; };
 		B9DFB11BCDC27FF94F896EBE /* Pods_On_The_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_On_The_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE042A7E2305C2E000E57E55 /* UIViewController Extension + ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension + ErrorAlert.swift"; sourceTree = "<group>"; };
+		CE042A802306A1F200E57E55 /* UserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoResponse.swift; sourceTree = "<group>"; };
 		CE34229F2301796300E60ED5 /* LocationPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPostResponse.swift; sourceTree = "<group>"; };
 		CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateResponse.swift; sourceTree = "<group>"; };
 		CECACE2522F9C48C0088505A /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +106,7 @@
 				CECACE5422FDBD210088505A /* LoginResponse.swift */,
 				CE34229F2301796300E60ED5 /* LocationPostResponse.swift */,
 				CE3422A12301B88900E60ED5 /* LocationUpdateResponse.swift */,
+				CE042A802306A1F200E57E55 /* UserInfoResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -146,6 +151,7 @@
 				CECACE3D22FAC9270088505A /* TableTableViewController.swift */,
 				CECACE4122FAC9D50088505A /* InformationPostingViewController.swift */,
 				CECACE4322FACA120088505A /* NewLocationMapViewController.swift */,
+				CE042A7E2305C2E000E57E55 /* UIViewController Extension + ErrorAlert.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -300,6 +306,8 @@
 				CECACE4422FACA120088505A /* NewLocationMapViewController.swift in Sources */,
 				CE3422A02301796300E60ED5 /* LocationPostResponse.swift in Sources */,
 				CECACE3C22FAC9020088505A /* MapViewController.swift in Sources */,
+				CE042A812306A1F200E57E55 /* UserInfoResponse.swift in Sources */,
+				CE042A7F2305C2E000E57E55 /* UIViewController Extension + ErrorAlert.swift in Sources */,
 				CECACE2922F9C48C0088505A /* AppDelegate.swift in Sources */,
 				CECACE4B22FAE76B0088505A /* MapClient.swift in Sources */,
 				CE3422A22301B88900E60ED5 /* LocationUpdateResponse.swift in Sources */,

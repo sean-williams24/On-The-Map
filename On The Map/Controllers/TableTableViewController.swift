@@ -17,10 +17,6 @@ class TableTableViewController: UITableViewController {
         loadLocations()        
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return StudentModel.studentLocationData.count
     }
@@ -41,7 +37,9 @@ class TableTableViewController: UITableViewController {
         let student = StudentModel.studentLocationData[indexPath.row]
             let app = UIApplication.shared
             let toOpen = student.mediaURL
-            app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
+            if let url = URL(string: toOpen) {
+            app.open(url, options: [:], completionHandler: nil)
+        }
     }
 
     @IBAction func refreshTapped(_ sender: Any) {

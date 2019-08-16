@@ -21,8 +21,7 @@ class NewLocationMapViewController: UIViewController {
     var name = ""
     var region = ""
     var country = ""
-    let firstName = "Quentin"
-    let lastName = "Tarantino"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +34,7 @@ class NewLocationMapViewController: UIViewController {
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        annotation.title = "\(self.firstName) \(self.lastName): \(name) - \(region) / \(country)"
+        annotation.title = "\(MapClient.Auth.firstName) \(MapClient.Auth.lastName): \(name) - \(region) / \(country)"
         annotation.subtitle = self.mediaURL
         
         self.mapView.addAnnotation(annotation)
@@ -49,9 +48,9 @@ class NewLocationMapViewController: UIViewController {
     @IBAction func finishButtonTapped(_ sender: Any) {
         
         if MapClient.Auth.updatingLocation == true {
-            MapClient.updateStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePutResponse(success:error:))
+            MapClient.updateStudentLocation(mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePutResponse(success:error:))
             } else {
-                MapClient.postStudentLocation(firstName: firstName, lastName: lastName, mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
+                MapClient.postStudentLocation(mapString: location, mediaURL: "https://\(mediaURL)", lat: latPost, lon: longPost, completion: handlePostResponse(success:error:))
         }
     }
     
@@ -64,7 +63,7 @@ class NewLocationMapViewController: UIViewController {
                 }
             }
         } else {
-            showPostError()
+            self.showErrorAlert(title: "Posting Failure", error: "There was an error posting your location to the servers.")
         }
     }
     
@@ -76,14 +75,7 @@ class NewLocationMapViewController: UIViewController {
                     }
                 }
         } else {
-            showPostError()
+            self.showErrorAlert(title: "Posting Failure", error: "There was an error posting your location to the servers.")
         }
-    }
-    
-    
-    func showPostError() {
-        let alertVC = UIAlertController(title: "Posting Failure", message: "There was an error posting your location to the servers.", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertVC, animated: true)
     }
 }

@@ -15,6 +15,8 @@ class MapClient {
         static var key = ""
         static var sessionID = ""
         static let uniqueKey = "0987654"
+        static var firstName = ""
+        static var lastName = ""
         static var objectID = ""
         static var facebookLogin = false
         static var updatingLocation = false
@@ -26,14 +28,16 @@ class MapClient {
         
         case getStudentLocation
         case getSessionID
+        case getUserInfo
         case postStudentLocation
         case updateStudentLocation
         case deleteSession
         
         var stringValue: String {
             switch self {
-            case .getStudentLocation: return Endpoints.baseStudentLocation + "?order=-updatedAt"
+            case .getStudentLocation: return Endpoints.baseStudentLocation + "?order=-updatedAt&limit=100"
             case .getSessionID: return Endpoints.baseSession
+            case .getUserInfo: return "https://onthemap-api.udacity.com/v1/users/\(Auth.key)"
             case .postStudentLocation: return Endpoints.baseStudentLocation
             case .updateStudentLocation: return Endpoints.baseStudentLocation + "/\(Auth.objectID)"
             case .deleteSession: return Endpoints.baseSession
@@ -56,7 +60,6 @@ class MapClient {
         request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
-                print("Reached guard block")
                 completion(nil, error)
                 return
             }
@@ -85,6 +88,7 @@ class MapClient {
                 Auth.key = response.account.key
                 Auth.sessionID = response.session.ID
                 print("Session ID: \(Auth.sessionID)")
+                print("Account Key: \(Auth.key)")
                 DispatchQueue.main.async {
                     completion(true, nil)
                 }
@@ -95,6 +99,31 @@ class MapClient {
             }
         }
     }
+    
+    
+    // MARK: - 1a. Get public user information
+    class func getPublicUserInfo(completion: @escaping(Any?, Error?) -> Void) {
+        let request = URLRequest(url: Endpoints.getUserInfo.url)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                return
+            }
+            let range = 5..<data.count
+            let newData = data.subdata(in: range) /* subset response data! */
+            
+            let decoder = JSONDecoder()
+            do {
+                let student = try decoder.decode(UserInfoResponse.self, from: newData)
+                Auth.firstName = student.firstName
+                Auth.lastName = student.lastName
+            } catch {
+                print(error)
+            }
+        }
+        task.resume()
+    }
+  
     
     
     // MARK: - 2. Download and parse student location data and store in studentLocationData array
@@ -140,7 +169,6 @@ class MapClient {
             do {
                 let responseObject = try decoder.decode(LocationPostResponse.self, from: data)
                 DispatchQueue.main.async {
-                    print(responseObject)
                     completion(responseObject, nil)
                 }
             } catch {
@@ -153,9 +181,9 @@ class MapClient {
         task.resume()
     }
     
-    class func postStudentLocation(firstName: String, lastName: String, mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?) -> Void) {
+    class func postStudentLocation(mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?) -> Void) {
         
-        let body = StudentLocation(objectId: "", uniqueKey: Auth.uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
+        let body = StudentLocation(objectId: "", uniqueKey: Auth.uniqueKey, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
         taskForPostStudentLocation(body: body) { (response, error) in
             if let response = response {
                 Auth.objectID = response.objectId
@@ -195,10 +223,10 @@ class MapClient {
         task.resume()
     }
     
-    class func updateStudentLocation(firstName: String, lastName: String, mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?) -> Void) {
-        let body = StudentLocation(objectId: Auth.objectID, uniqueKey: Auth.uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
+    class func updateStudentLocation(mapString: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?) -> Void) {
+        let body = StudentLocation(objectId: Auth.objectID, uniqueKey: Auth.uniqueKey, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, mediaURL: mediaURL, latitude: lat, longitude: lon)
         taskForPutStudentLocation(body: body) { (response, error) in
-            if let response = response {
+            if response != nil {
                 DispatchQueue.main.async {
                     completion(true, nil)
                 }
