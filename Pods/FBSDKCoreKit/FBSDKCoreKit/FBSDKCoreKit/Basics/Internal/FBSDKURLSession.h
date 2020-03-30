@@ -16,38 +16,30 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCrypto.h"
+#import <Foundation/Foundation.h>
 
-#import "FBSDKBase64.h"
-#import "FBSDKDynamicFrameworkLoader.h"
+#import "FBSDKURLSessionTask.h"
 
-static inline void FBSDKCryptoBlankData(NSData *data)
-{
-  if (!data) {
-    return;
-  }
-  bzero((void *) [data bytes], [data length]);
-}
+NS_ASSUME_NONNULL_BEGIN
 
-@implementation FBSDKCrypto
+@interface FBSDKURLSession : NSObject
 
-+ (NSData *)randomBytes:(NSUInteger)numOfBytes
-{
-  uint8_t *buffer = malloc(numOfBytes);
-  int result = fbsdkdfl_SecRandomCopyBytes([FBSDKDynamicFrameworkLoader loadkSecRandomDefault], numOfBytes, buffer);
-  if (result != 0) {
-    free(buffer);
-    return nil;
-  }
-  return [NSData dataWithBytesNoCopy:buffer length:numOfBytes];
-}
+@property (atomic, strong, nullable) NSURLSession *session;
+@property (nonatomic, weak, nullable) id<NSURLSessionDataDelegate> delegate;
+@property (nonatomic, retain, nullable) NSOperationQueue *delegateQueue;
 
-+ (NSString *)randomString:(NSUInteger)numOfBytes
-{
-  NSData *randomStringData = [FBSDKCrypto randomBytes:numOfBytes];
-  NSString *randomString = [FBSDKBase64 encodeData:randomStringData];
-  FBSDKCryptoBlankData(randomStringData);
-  return randomString;
-}
+- (instancetype)initWithDelegate:(id<NSURLSessionDataDelegate>)delegate
+                   delegateQueue:(NSOperationQueue *)delegateQueue;
+
+- (void)executeURLRequest:(NSURLRequest *)request
+        completionHandler:(FBSDKURLSessionTaskBlock)handler;
+
+- (void)updateSessionWithBlock:(dispatch_block_t)block;
+
+- (void)invalidateAndCancel;
+
+- (BOOL)valid;
 
 @end
+
+NS_ASSUME_NONNULL_END

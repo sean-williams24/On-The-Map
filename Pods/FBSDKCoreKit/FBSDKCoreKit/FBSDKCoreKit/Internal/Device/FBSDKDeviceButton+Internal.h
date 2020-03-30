@@ -16,38 +16,24 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCrypto.h"
+#import "TargetConditionals.h"
 
-#import "FBSDKBase64.h"
-#import "FBSDKDynamicFrameworkLoader.h"
+#if TARGET_OS_TV
 
-static inline void FBSDKCryptoBlankData(NSData *data)
-{
-  if (!data) {
-    return;
-  }
-  bzero((void *) [data bytes], [data length]);
-}
+#import <Foundation/Foundation.h>
 
-@implementation FBSDKCrypto
+#if SWIFT_PACKAGE
+#import "FBSDKDeviceButton.h"
+#else
+#import <FBSDKCoreKit/FBSDKDeviceButton.h>
+#endif
 
-+ (NSData *)randomBytes:(NSUInteger)numOfBytes
-{
-  uint8_t *buffer = malloc(numOfBytes);
-  int result = fbsdkdfl_SecRandomCopyBytes([FBSDKDynamicFrameworkLoader loadkSecRandomDefault], numOfBytes, buffer);
-  if (result != 0) {
-    free(buffer);
-    return nil;
-  }
-  return [NSData dataWithBytesNoCopy:buffer length:numOfBytes];
-}
+@interface FBSDKDeviceButton ()
 
-+ (NSString *)randomString:(NSUInteger)numOfBytes
-{
-  NSData *randomStringData = [FBSDKCrypto randomBytes:numOfBytes];
-  NSString *randomString = [FBSDKBase64 encodeData:randomStringData];
-  FBSDKCryptoBlankData(randomStringData);
-  return randomString;
-}
+- (NSAttributedString *)attributedTitleStringFromString:(NSString *)string;
+- (CGSize)sizeThatFits:(CGSize)size title:(NSString *)title;
+- (CGSize)sizeThatFits:(CGSize)size attributedTitle:(NSAttributedString *)title;
 
 @end
+
+#endif

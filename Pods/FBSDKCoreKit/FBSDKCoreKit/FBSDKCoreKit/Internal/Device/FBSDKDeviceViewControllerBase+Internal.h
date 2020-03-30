@@ -16,38 +16,38 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCrypto.h"
+#import "TargetConditionals.h"
 
-#import "FBSDKBase64.h"
-#import "FBSDKDynamicFrameworkLoader.h"
+#if TARGET_OS_TV
 
-static inline void FBSDKCryptoBlankData(NSData *data)
-{
-  if (!data) {
-    return;
-  }
-  bzero((void *) [data bytes], [data length]);
-}
+#if SWIFT_PACKAGE
+#import "FBSDKDeviceViewControllerBase.h"
+#else
+#import <FBSDKCoreKit/FBSDKDeviceViewControllerBase.h>
+#endif
 
-@implementation FBSDKCrypto
+#import "FBSDKCoreKit+Internal.h"
+#import "FBSDKDeviceDialogView.h"
 
-+ (NSData *)randomBytes:(NSUInteger)numOfBytes
-{
-  uint8_t *buffer = malloc(numOfBytes);
-  int result = fbsdkdfl_SecRandomCopyBytes([FBSDKDynamicFrameworkLoader loadkSecRandomDefault], numOfBytes, buffer);
-  if (result != 0) {
-    free(buffer);
-    return nil;
-  }
-  return [NSData dataWithBytesNoCopy:buffer length:numOfBytes];
-}
+@class FBSDKDeviceDialogView;
 
-+ (NSString *)randomString:(NSUInteger)numOfBytes
-{
-  NSData *randomStringData = [FBSDKCrypto randomBytes:numOfBytes];
-  NSString *randomString = [FBSDKBase64 encodeData:randomStringData];
-  FBSDKCryptoBlankData(randomStringData);
-  return randomString;
-}
+NS_ASSUME_NONNULL_BEGIN
+
+/*
+  An internal base class for device related flows.
+
+ This is an internal API that should not be used directly and is subject to change.
+*/
+@interface FBSDKDeviceViewControllerBase()<
+UIViewControllerAnimatedTransitioning,
+UIViewControllerTransitioningDelegate,
+FBSDKDeviceDialogViewDelegate
+>
+
+@property (nonatomic, strong, readonly) FBSDKDeviceDialogView *deviceDialogView;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif

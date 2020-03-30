@@ -16,38 +16,45 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCrypto.h"
+#import "FBSDKURLSessionTask.h"
 
-#import "FBSDKBase64.h"
-#import "FBSDKDynamicFrameworkLoader.h"
+@implementation FBSDKURLSessionTask
 
-static inline void FBSDKCryptoBlankData(NSData *data)
+- (instancetype)init
 {
-  if (!data) {
-    return;
+  if ((self = [super init])) {
+    _requestStartDate = [NSDate date];
   }
-  bzero((void *) [data bytes], [data length]);
+  return self;
 }
 
-@implementation FBSDKCrypto
-
-+ (NSData *)randomBytes:(NSUInteger)numOfBytes
+- (instancetype)initWithRequest:(NSURLRequest *)request
+                    fromSession:(NSURLSession *)session
+              completionHandler:(FBSDKURLSessionTaskBlock)handler
 {
-  uint8_t *buffer = malloc(numOfBytes);
-  int result = fbsdkdfl_SecRandomCopyBytes([FBSDKDynamicFrameworkLoader loadkSecRandomDefault], numOfBytes, buffer);
-  if (result != 0) {
-    free(buffer);
-    return nil;
+  if ((self = [self init])) {
+    self.requestStartTime = (uint64_t)([self.requestStartDate timeIntervalSince1970] * 1000);
+    self.task = [session dataTaskWithRequest:request completionHandler:handler];
   }
-  return [NSData dataWithBytesNoCopy:buffer length:numOfBytes];
+  return self;
 }
 
-+ (NSString *)randomString:(NSUInteger)numOfBytes
+- (NSURLSessionTaskState)state
 {
-  NSData *randomStringData = [FBSDKCrypto randomBytes:numOfBytes];
-  NSString *randomString = [FBSDKBase64 encodeData:randomStringData];
-  FBSDKCryptoBlankData(randomStringData);
-  return randomString;
+  return self.task.state;
+}
+
+#pragma mark - Task State
+
+- (void)start
+{
+  [self.task resume];
+}
+
+- (void)cancel
+{
+  [self.task cancel];
+  self.handler = nil;
 }
 
 @end

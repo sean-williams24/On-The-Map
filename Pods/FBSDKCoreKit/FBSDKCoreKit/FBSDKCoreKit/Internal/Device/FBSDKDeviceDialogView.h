@@ -16,38 +16,32 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCrypto.h"
+#import "TargetConditionals.h"
 
-#import "FBSDKBase64.h"
-#import "FBSDKDynamicFrameworkLoader.h"
+#if TARGET_OS_TV
 
-static inline void FBSDKCryptoBlankData(NSData *data)
-{
-  if (!data) {
-    return;
-  }
-  bzero((void *) [data bytes], [data length]);
-}
+#import <UIKit/UIKit.h>
 
-@implementation FBSDKCrypto
+NS_SWIFT_NAME(DeviceDialogViewDelegate)
+@protocol FBSDKDeviceDialogViewDelegate;
 
-+ (NSData *)randomBytes:(NSUInteger)numOfBytes
-{
-  uint8_t *buffer = malloc(numOfBytes);
-  int result = fbsdkdfl_SecRandomCopyBytes([FBSDKDynamicFrameworkLoader loadkSecRandomDefault], numOfBytes, buffer);
-  if (result != 0) {
-    free(buffer);
-    return nil;
-  }
-  return [NSData dataWithBytesNoCopy:buffer length:numOfBytes];
-}
+// internal class, APIs are subject to change.
+NS_SWIFT_NAME(FBDeviceDialogView)
+@interface FBSDKDeviceDialogView : UIView
 
-+ (NSString *)randomString:(NSUInteger)numOfBytes
-{
-  NSData *randomStringData = [FBSDKCrypto randomBytes:numOfBytes];
-  NSString *randomString = [FBSDKBase64 encodeData:randomStringData];
-  FBSDKCryptoBlankData(randomStringData);
-  return randomString;
-}
+@property (nonatomic, weak) id<FBSDKDeviceDialogViewDelegate> delegate;
+@property (nonatomic, copy) NSString *confirmationCode;
+
+// override point for subclasses.
+- (void)buildView;
 
 @end
+
+NS_SWIFT_NAME(DeviceDialogViewDelegate)
+@protocol FBSDKDeviceDialogViewDelegate <NSObject>
+
+- (void)deviceDialogViewDidCancel:(FBSDKDeviceDialogView *)deviceDialogView;
+
+@end
+
+#endif

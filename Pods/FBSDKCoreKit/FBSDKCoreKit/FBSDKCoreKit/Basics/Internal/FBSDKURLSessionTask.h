@@ -16,38 +16,30 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCrypto.h"
+#import <Foundation/Foundation.h>
 
-#import "FBSDKBase64.h"
-#import "FBSDKDynamicFrameworkLoader.h"
+typedef void (^FBSDKURLSessionTaskBlock)(NSData *responseData,
+                                         NSURLResponse *response,
+                                         NSError *error)
+NS_SWIFT_NAME(URLSessionTaskBlock);
 
-static inline void FBSDKCryptoBlankData(NSData *data)
-{
-  if (!data) {
-    return;
-  }
-  bzero((void *) [data bytes], [data length]);
-}
+NS_SWIFT_NAME(URLSessionTask)
+@interface FBSDKURLSessionTask : NSObject
 
-@implementation FBSDKCrypto
+@property (nonatomic, strong) NSURLSessionTask *task;
+@property (atomic, readonly) NSURLSessionTaskState state;
+@property (nonatomic, strong, readonly) NSDate *requestStartDate;
+@property (nonatomic, copy) FBSDKURLSessionTaskBlock handler;
+@property (nonatomic, assign) uint64_t requestStartTime;
+@property (nonatomic, assign) NSUInteger loggerSerialNumber;
 
-+ (NSData *)randomBytes:(NSUInteger)numOfBytes
-{
-  uint8_t *buffer = malloc(numOfBytes);
-  int result = fbsdkdfl_SecRandomCopyBytes([FBSDKDynamicFrameworkLoader loadkSecRandomDefault], numOfBytes, buffer);
-  if (result != 0) {
-    free(buffer);
-    return nil;
-  }
-  return [NSData dataWithBytesNoCopy:buffer length:numOfBytes];
-}
++ (instancetype)new NS_UNAVAILABLE;
 
-+ (NSString *)randomString:(NSUInteger)numOfBytes
-{
-  NSData *randomStringData = [FBSDKCrypto randomBytes:numOfBytes];
-  NSString *randomString = [FBSDKBase64 encodeData:randomStringData];
-  FBSDKCryptoBlankData(randomStringData);
-  return randomString;
-}
+- (instancetype)initWithRequest:(NSURLRequest *)request
+                    fromSession:(NSURLSession *)session
+              completionHandler:(FBSDKURLSessionTaskBlock)handler;
+
+- (void)start;
+- (void)cancel;
 
 @end
