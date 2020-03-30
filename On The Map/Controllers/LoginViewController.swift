@@ -36,10 +36,19 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
         // Facebook login button
         
         let FBloginButton = FBLoginButton(permissions: [ .publicProfile ])
-        FBloginButton.center.x = self.view.center.x
-        FBloginButton.frame.origin.y = self.view.frame.height - (FBloginButton.frame.height * 3)
         FBloginButton.delegate = self
+
+        for const in FBloginButton.constraints{
+            if const.firstAttribute == NSLayoutConstraint.Attribute.height && const.constant == 28 {
+                FBloginButton.removeConstraint(const)
+            }
+        }
         view.addSubview(FBloginButton)
+        FBloginButton.translatesAutoresizingMaskIntoConstraints = false
+        FBloginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        FBloginButton.leadingAnchor.constraint(equalToSystemSpacingAfter: passwordTextfield.leadingAnchor, multiplier: 0).isActive = true
+        FBloginButton.trailingAnchor.constraint(equalToSystemSpacingAfter: passwordTextfield.trailingAnchor, multiplier: 0).isActive = true
+        FBloginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         
         if let accessToken = AccessToken.current {
             // User already logged in with FaceBook
@@ -52,17 +61,21 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         guard let result = result else { return }
-        
+        print("FB tapped")
         if ((error) != nil) {
             // Process error
             print(error as Any)
         }
         else if result.isCancelled {
             // Handle cancellations
+            print("Cancelled")
         }
         else {
             MapClient.Auth.facebookLogin = true
             print("FB LOGIN SUCCESS")
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "navVC") {
+                present(vc, animated: true)
+            }
         }
     }
     
@@ -71,9 +84,11 @@ class LoginViewController: UIViewController, UITextViewDelegate, LoginButtonDele
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if (AccessToken.current != nil && MapClient.Auth.facebookLogin == true)
+        if (AccessToken.current != nil)
         {
-            performSegue(withIdentifier: "loginSegue", sender: self)
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "navVC") {
+                present(vc, animated: true)
+            }
         }
     }
 

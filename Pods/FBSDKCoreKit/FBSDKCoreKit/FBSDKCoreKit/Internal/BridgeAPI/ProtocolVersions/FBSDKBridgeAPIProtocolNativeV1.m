@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKBridgeAPIProtocolNativeV1.h"
 
 #import <UIKit/UIKit.h>
@@ -187,11 +191,11 @@ static const struct
   }
   NSError *error;
   NSString *bridgeParametersJSON = queryParameters[FBSDKBridgeAPIProtocolNativeV1InputKeys.bridgeArgs];
-  NSDictionary *bridgeParameters = [FBSDKInternalUtility objectForJSONString:bridgeParametersJSON error:&error];
+  NSDictionary<id, id> *bridgeParameters = [FBSDKBasicUtility objectForJSONString:bridgeParametersJSON error:&error];
   bridgeParameters = [FBSDKTypeUtility dictionaryValue:bridgeParameters];
   if (!bridgeParameters) {
     if (error && (errorRef != NULL)) {
-      *errorRef = [NSError fbInvalidArgumentErrorWithName:FBSDKBridgeAPIProtocolNativeV1InputKeys.bridgeArgs
+      *errorRef = [FBSDKError invalidArgumentErrorWithName:FBSDKBridgeAPIProtocolNativeV1InputKeys.bridgeArgs
                                                      value:bridgeParametersJSON
                                                    message:@"Invalid bridge_args."
                                            underlyingError:error];
@@ -213,10 +217,10 @@ static const struct
     return nil;
   }
   NSString *resultParametersJSON = queryParameters[FBSDKBridgeAPIProtocolNativeV1InputKeys.methodResults];
-  NSDictionary *resultParameters = [FBSDKInternalUtility objectForJSONString:resultParametersJSON error:&error];
+  NSDictionary<id, id> *resultParameters = [FBSDKBasicUtility objectForJSONString:resultParametersJSON error:&error];
   if (!resultParameters) {
     if (errorRef != NULL) {
-      *errorRef = [NSError fbInvalidArgumentErrorWithName:FBSDKBridgeAPIProtocolNativeV1InputKeys.methodResults
+      *errorRef = [FBSDKError invalidArgumentErrorWithName:FBSDKBridgeAPIProtocolNativeV1InputKeys.methodResults
                                                      value:resultParametersJSON
                                                    message:@"Invalid method_results."
                                            underlyingError:error];
@@ -333,3 +337,5 @@ static const struct
 }
 
 @end
+
+#endif

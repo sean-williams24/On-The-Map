@@ -16,11 +16,16 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKLoginCompletion.h"
 
 @interface FBSDKLoginCompletionParameters ()
 
 @property (nonatomic, copy) NSString *accessTokenString;
+@property (nonatomic, copy) NSString *nonceString;
 
 @property (nonatomic, copy) NSSet *permissions;
 @property (nonatomic, copy) NSSet *declinedPermissions;
@@ -36,4 +41,8 @@
 
 @property (nonatomic, copy) NSString *challenge;
 
+@property (nonatomic, copy) NSString *graphDomain;
+
 @end
+
+#endif

@@ -16,10 +16,13 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <UIKit/UIKit.h>
 
-#import <FBSDKShareKit/FBSDKLikeObjectType.h>
+#import "FBSDKLikeObjectType.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 
@@ -53,6 +56,7 @@ NS_SWIFT_NAME(LikeActionController)
 @property (nonatomic, copy, readonly) NSString *socialSentence;
 
 - (void)refresh;
-- (void)toggleLikeWithSoundEnabled:(BOOL)soundEnabled analyticsParameters:(NSDictionary *)analyticsParameters fromViewController:(UIViewController *)fromViewController;
 
 @end
+
+#endif

@@ -6,8 +6,8 @@ target 'On The Map' do
   use_frameworks!
 
   # Pods for On The Map
-    pod 'FacebookCore'
-    pod 'FacebookLogin'
-    pod 'FacebookShare'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 
 end

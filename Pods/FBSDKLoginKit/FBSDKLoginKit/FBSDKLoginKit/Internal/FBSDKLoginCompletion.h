@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <Foundation/Foundation.h>
 
 @class FBSDKLoginManager;
@@ -39,6 +43,7 @@ NS_SWIFT_NAME(LoginCompletionParameters)
 - (instancetype)initWithError:(NSError *)error;
 
 @property (nonatomic, copy, readonly) NSString *accessTokenString;
+@property (nonatomic, copy, readonly) NSString *nonceString;
 
 @property (nonatomic, copy, readonly) NSSet *permissions;
 @property (nonatomic, copy, readonly) NSSet *declinedPermissions;
@@ -53,6 +58,8 @@ NS_SWIFT_NAME(LoginCompletionParameters)
 @property (nonatomic, copy, readonly) NSDate *dataAccessExpirationDate;
 
 @property (nonatomic, copy, readonly) NSString *challenge;
+
+@property (nonatomic, copy, readonly) NSString *graphDomain;
 @end
 
 NS_SWIFT_NAME(LoginCompleting)
@@ -62,7 +69,7 @@ NS_SWIFT_NAME(LoginCompleting)
   Invoke \p handler with the login parameters derived from the authentication result.
  See the implementing class's documentation for whether it completes synchronously or asynchronously.
  */
-- (void)completeLogIn:(FBSDKLoginManager *)loginManager withHandler:(FBSDKLoginCompletionParametersBlock)handler;
+- (void)completeLoginWithHandler:(FBSDKLoginCompletionParametersBlock)handler;
 
 @end
 
@@ -86,3 +93,4 @@ NS_SWIFT_NAME(LoginURLCompleter)
 
 @end
 
+#endif

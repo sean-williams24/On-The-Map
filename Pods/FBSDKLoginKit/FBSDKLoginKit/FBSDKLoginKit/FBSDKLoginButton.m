@@ -16,9 +16,18 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKLoginButton.h"
 
+#ifdef FBSDKCOCOAPODS
+#import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+#else
 #import "FBSDKCoreKit+Internal.h"
+#endif
+
 #import "FBSDKLoginTooltipView.h"
 
 static const CGFloat kFBLogoSize = 16.0;
@@ -67,32 +76,15 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
   _loginManager.loginBehavior = loginBehavior;
 }
 
-- (void)setReadPermissions:(NSArray<NSString *> *)readPermissions
-{
-  _readPermissions = readPermissions;
-
-  NSMutableSet<NSString *> *newPermissions = [NSMutableSet setWithArray:_publishPermissions];
-  [newPermissions addObjectsFromArray:readPermissions];
-  _permissions = [newPermissions allObjects];
-}
-
-- (void)setPublishPermissions:(NSArray<NSString *> *)publishPermissions
-{
-  _publishPermissions = publishPermissions;
-
-  NSMutableSet<NSString *> *newPermissions = [NSMutableSet setWithArray:_readPermissions];
-  [newPermissions addObjectsFromArray:publishPermissions];
-  _permissions = [newPermissions allObjects];
-}
-
 - (UIFont *)defaultFont
 {
-  return [UIFont systemFontOfSize:13];
-}
+  CGFloat size = 15;
 
-- (UIColor *)backgroundColor
-{
-  return [UIColor colorWithRed:66.0/255.0 green:103.0/255.0 blue:178.0/255.0 alpha:1.0];
+  if (@available(iOS 8.2, *)) {
+    return [UIFont systemFontOfSize:size weight:UIFontWeightSemibold];
+  } else {
+    return [UIFont boldSystemFontOfSize:size];
+  }
 }
 
 #pragma mark - UIView
@@ -202,7 +194,7 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
                                                       toItem:nil
                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                   multiplier:1
-                                                    constant:28]];
+                                                    constant:kButtonHeight]];
   [self _updateContent];
 
   [self addTarget:self action:@selector(_buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -344,3 +336,5 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
 }
 
 @end
+
+#endif

@@ -18,7 +18,11 @@
 
 #import "FBSDKShareOpenGraphContent.h"
 
+#ifdef FBSDKCOCOAPODS
+#import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+#else
 #import "FBSDKCoreKit+Internal.h"
+#endif
 #import "FBSDKHashtag.h"
 #import "FBSDKSharePhoto.h"
 #import "FBSDKShareUtility.h"
@@ -33,7 +37,10 @@
 #define FBSDK_SHARE_OPEN_GRAPH_CONTENT_PAGE_ID_KEY @"pageID"
 #define FBSDK_SHARE_OPEN_GRAPH_CONTENT_UUID_KEY @"uuid"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 @implementation FBSDKShareOpenGraphContent
+
 
 #pragma mark - Properties
 
@@ -117,7 +124,7 @@
   if (self == object) {
     return YES;
   }
-  if (![object isKindOfClass:[FBSDKShareOpenGraphContent class]]) {
+  if (![object isKindOfClass:NSClassFromString(@"FBSDKShareOpenGraphContent")]) {
     return NO;
   }
   return [self isEqualToShareOpenGraphContent:(FBSDKShareOpenGraphContent *)object];
@@ -193,3 +200,4 @@
 }
 
 @end
+#pragma clang diagnostic pop

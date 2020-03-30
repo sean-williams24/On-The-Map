@@ -18,10 +18,25 @@
 
 #import <UIKit/UIKit.h>
 
-#import <FBSDKCoreKit/FBSDKButton.h>
+#import "TargetConditionals.h"
 
-#import <FBSDKLoginKit/FBSDKLoginManager.h>
+#if TARGET_OS_TV
 
+@interface FBLoginButton : UIView
+
+@property (copy, nonatomic) NSArray<NSString *> *permissions;
+
+@end
+
+#else
+
+#if defined BUCK || defined FBSDKCOCOAPODS || defined __cplusplus
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#else
+@import FBSDKCoreKit;
+#endif
+
+#import "FBSDKLoginManager.h"
 #import "FBSDKTooltipView.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -71,7 +86,8 @@ NS_SWIFT_NAME(FBLoginButton)
 /**
   Gets or sets the login behavior to use
  */
-@property (assign, nonatomic) FBSDKLoginBehavior loginBehavior;
+@property (assign, nonatomic) FBSDKLoginBehavior loginBehavior
+DEPRECATED_MSG_ATTRIBUTE("All login flows utilize the browser. This will be removed in the next major release");
 
 /*!
  @abstract The permissions to request.
@@ -84,12 +100,6 @@ NS_SWIFT_NAME(FBLoginButton)
  See [the permissions guide]( https://developers.facebook.com/docs/facebook-login/permissions/ ) for more details.
  */
 @property (copy, nonatomic) NSArray<NSString *> *permissions;
-
-@property (copy, nonatomic) NSArray<NSString *> *publishPermissions
-DEPRECATED_MSG_ATTRIBUTE("Use permissions instead.");
-
-@property (copy, nonatomic) NSArray<NSString *> *readPermissions
-DEPRECATED_MSG_ATTRIBUTE("Use permissions instead.");
 /**
   Gets or sets the desired tooltip behavior.
  */
@@ -136,3 +146,5 @@ didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif
