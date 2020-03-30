@@ -5,6 +5,18 @@ This was the *first* project in the *second* term of my iOS Nanodergree which ha
 
 I implemented extra functionality which enables users to update their existing location by checking for an existing record in the database; also Facebook login functionlity.
 
+## Pre-requisites
+Facebook Frameworks:
+- FacebookCore
+- FBSDKCoreKit
+- FBSDKLoginKit
+- FBSDKShareKit
+
+## Getting Started
+Clone or download the project and run the On The Map.xcworkspace file; podfiles are included but if there are any issues the required pods are listed above. 
+
+On initial launch the user is presented with an option to login with an email address (using Udacity account credentials) or Facebook. On Successful login pins can be viewed on a map or in a table list view. Tapping the pin icon (right of navigation bar) enables the user to add a pin or update an existing one. 
+
 ## Key learnings
 - Accessing networked data using Apple’s URL loading framework
 - Authenticating a user using over a network connection
@@ -12,9 +24,4 @@ I implemented extra functionality which enables users to update their existing l
 - Use Core Location and the MapKit framework for to display annotated pins on a map
 - Facebook login process
 
-## Pre-requisites
-Facebook Frameworks:
-- FacebookCore
-- FBSDKCoreKit
-- FBSDKLoginKit
-- FBSDKShareKit
+
