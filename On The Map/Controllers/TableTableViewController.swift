@@ -38,7 +38,7 @@ class TableTableViewController: UITableViewController {
             let app = UIApplication.shared
             let toOpen = student.mediaURL
             if let url = URL(string: toOpen) {
-            app.open(url, options: [:], completionHandler: nil)
+                app.open(url, options: [:], completionHandler: nil)
         }
     }
 
